@@ -6,27 +6,27 @@ SRC_DIR = src
 MLX_DIR = minilibx
 HEADER = cub3D.h
 
-MLX = $(MLX_DIR)/libmlx.a
+# MLX = $(MLX_DIR)/libmlx.a
 
-SRCS = src/main.c
+SRCS = src/main.c src/parsing/parse_file.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c 
 OBJS = $(SRCS:.c=.o)
 
 LINK_FLAGS = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(MLX)
-	$(CC) $(CFLAGS) $(OBJS) $(LINK_FLAGS) -o $(NAME)
+$(NAME): $(OBJS) #$(MLX)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-$(MLX):
-	$(MAKE) -C $(MLX_DIR)
+# $(MLX):
+# 	$(MAKE) -C $(MLX_DIR)
 
 %.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJS)
-	$(MAKE) -C $(MLX_DIR) clean
+	# $(MAKE) -C $(MLX_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)

@@ -18,9 +18,53 @@
 # include <unistd.h>
 # include <math.h>
 # include <limits.h>
+# include <fcntl.h>
+# include <string.h>
 
 /// for get next line
 # define BUFFER_SIZE 42
+
+
+//////////////////////////////////   START COLORS   ///////////////////////////
+
+# define BLACK		0X000000
+# define WHITE		0xFFFFFF
+# define RED		0xFF0000
+# define GREEN		0x00FF00
+# define BLUE		0x0000FF
+# define YELLOW		0xFFFF00
+# define MAGENTA	0xFF00FF
+# define CYAN		0x00FFFF
+
+# define MAX_COLOR_VALUE 255
+# define MIN_COLOR_VALUE 0
+
+# define WIN_WIDTH 1024
+# define WIN_HEIGHT 768
+# define WIN_TITLE	"cub3D"
+
+/* Key codes (adjust based on your system) */
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
+# define KEY_ESC 65307
+
+/* Map characters */
+# define WALL '1'
+# define EMPTY '0'
+# define NORTH 'N'
+# define SOUTH 'S'
+# define EAST 'E'
+# define WEST 'W'
+
+/* Movement speed */
+# define MOVE_SPEED 0.1
+# define ROT_SPEED 0.05
+
+//////////////////////////////////   END COLORS   ///////////////////////////
 
 typedef struct  s_texture
 {
@@ -71,7 +115,7 @@ typedef	struct s_game
 
 	t_map		map;
 	t_player	player;
-};
+}	t_game;
 
 
 ///////////////// Get Next Line ///////////////////////
@@ -81,6 +125,11 @@ char	*ft_strjoin_gnl(char const *s1, char const *s2);
 char	*ft_strdup_gnl(const char *s1);
 char	*ft_substr_gnl(char const *s, unsigned int start, size_t len);
 size_t	ft_strlcpy_gnl(char *dst, const char *src, size_t dstsize);
+size_t	ft_strlen_gnl(const char *s);
 char	*get_next_line(int fd);
-	
+
+///////////////// Parse file ///////////////////////
+
+int parse_cub_file(char *filename);
+
 #endif
