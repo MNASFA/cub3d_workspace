@@ -14,8 +14,6 @@ void init_game(t_game *game)
     game->player.y = 0;
     game->player.dir_x = 0;
     game->player.dir_y = 0;
-    game->player.plane_x = 0;
-    game->player.plane_y = 0;
 
     game->north.img = NULL;
     game->north.path = NULL;

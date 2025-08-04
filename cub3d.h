@@ -6,7 +6,7 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:08:39 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/07/15 14:13:19 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/08/04 14:13:46 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <limits.h>
 # include <fcntl.h>
 # include <string.h>
+# include "minilibx/mlx.h"
 
 /// for get next line
 # define BUFFER_SIZE 42
@@ -42,27 +43,19 @@
 # define WIN_WIDTH 1024
 # define WIN_HEIGHT 768
 # define WIN_TITLE	"cub3D"
+# define TILE_SIZE 32
 
-/* Key codes (adjust based on your system) */
-# define KEY_W 119
-# define KEY_A 97
-# define KEY_S 115
-# define KEY_D 100
-# define KEY_LEFT 65361
-# define KEY_RIGHT 65363
-# define KEY_ESC 65307
-
-/* Map characters */
-# define WALL '1'
-# define EMPTY '0'
-# define NORTH 'N'
-# define SOUTH 'S'
-# define EAST 'E'
-# define WEST 'W'
+# define KEY_W 13
+# define KEY_A 0
+# define KEY_S 1
+# define KEY_D 2
+# define KEY_LEFT 123
+# define KEY_RIGHT 124
+# define KEY_ESC 53
 
 /* Movement speed */
 # define MOVE_SPEED 0.1
-# define ROT_SPEED 0.05
+# define ROT_SPEED 0.1
 
 //////////////////////////////////   END COLORS   ///////////////////////////
 
@@ -166,5 +159,12 @@ void	free_lines(char **lines);
 char	**read_all_lines(int fd, int *line_count);
 int		parse_texture_line(char *line, t_game *game);
 int		parse_color_line(char *line, t_game *game);
+int		is_player(char c);
+
+///////////////// Rendring files ///////////////////////
+
+int		init_mlx(t_game *game);
+void	render_map(t_game *game);
+int		handle_keypress(int keycode, t_game *game);
 
 #endif

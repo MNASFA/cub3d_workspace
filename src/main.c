@@ -6,7 +6,7 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:56:23 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/07/15 13:56:24 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/08/04 13:18:28 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,10 @@ int main(int ac, char **av)
         write (2, "error parsing map\n", 19);
         return (1);
     }
+
+    init_mlx(&game);
+    render_map(&game);
+    mlx_hook(game.win, 2, 1L<<0, handle_keypress, &game);
+    mlx_loop(game.mlx);
     return (0);
 }

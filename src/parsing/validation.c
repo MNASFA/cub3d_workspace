@@ -1,14 +1,9 @@
 #include "../../cub3d.h"
 
-static int is_player(char c)
+int is_player(char c)
 {
     return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
 }
-
-// static int is_wall_space(char c)
-// {
-//     return (c == '1' || c == ' ');
-// }
 
 static void set_player_orientation(t_game *game, char dir)
 {
@@ -16,29 +11,21 @@ static void set_player_orientation(t_game *game, char dir)
     {
         game->player.dir_x = 0;
         game->player.dir_y = -1;
-        game->player.plane_x = 0.66;
-        game->player.plane_y = 0;
     }
     else if (dir == 'S')
     {
         game->player.dir_x = 0;
         game->player.dir_y = 1;
-        game->player.plane_x = -0.66;
-        game->player.plane_y = 0;
     }
     else if (dir == 'E')
     {   
         game->player.dir_x = 1;
         game->player.dir_y = 0;
-        game->player.plane_x = 0;
-        game->player.plane_y = 0.66;
     }
     else if (dir == 'W')
     {
         game->player.dir_x = -1;
         game->player.dir_y = 0;
-        game->player.plane_x = 0;
-        game->player.plane_y = -0.66;
     }
 }
 
