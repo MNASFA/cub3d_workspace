@@ -6,42 +6,11 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 10:49:06 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/04 12:50:59 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/08/04 18:43:28 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
-
-// void draw_square(t_game *game, int x, int y, int color)
-// {
-// 	int start_x;
-// 	int start_y;
-// 	int end_x;
-// 	int end_y;
-// 	int py;
-// 	int px;
-// 	int pixel;
-
-// 	start_x = x * TILE_SIZE;
-// 	start_y = y * TILE_SIZE;
-// 	end_x = start_x + TILE_SIZE;
-// 	end_y = start_y + TILE_SIZE;
-// 	py = start_y;
-// 	while (py < end_y)
-// 	{
-// 		px = start_x;
-// 		while (px < end_x)
-// 		{
-// 			if (px >= 0 && px < WIN_WIDTH && py >= 0 && py < WIN_HEIGHT)
-//             {
-//                 pixel = py * game->line_length + px * (game->bits_per_pixel / 8);
-//                 *(unsigned int *)(game->add + pixel) = color;
-//             }
-// 			px++;
-// 		}
-// 		py++;
-// 	}
-// }
 
 void	draw_square(t_game *game, int x, int y, int color)
 {
@@ -55,7 +24,7 @@ void	draw_square(t_game *game, int x, int y, int color)
 		px = x * TILE_SIZE;
 		while (px < (x + 1) * TILE_SIZE)
 		{
-			if (px >= 0 && px < WIN_WIDTH && py >= 0 && py < WIN_HEIGHT)
+			if (px >= 0 && px < game->win_width && py >= 0 && py < game->win_width)
 			{
 				pixel = py * game->line_length + px * (game->bits_per_pixel / 8);
 				*(unsigned int *)(game->add + pixel) = color;
@@ -68,32 +37,23 @@ void	draw_square(t_game *game, int x, int y, int color)
 
 void draw_direction_line(t_game *game)
 {
-	int center_x;
-	int center_y;
-	int line_length;
-	int end_x;
-	int end_y;
+	t_line	line;
 	int i;
-	float ratio;
-	int px;
-	int py;
-	int pixel;
 	
-    center_x = (int)(game->player.x * TILE_SIZE);
-    center_y = (int)(game->player.y * TILE_SIZE);
-    line_length = 20;
-    end_x = center_x + (int)(game->player.dir_x * line_length);
-    end_y = center_y + (int)(game->player.dir_y * line_length);
+    line.center_x = (int)(game->player.x * TILE_SIZE);
+    line.center_y = (int)(game->player.y * TILE_SIZE);
+    line.end_x = line.center_x + (int)(game->player.dir_x * 20);
+    line.end_y = line.center_y + (int)(game->player.dir_y * 20);
     i = 0;
-	while(i <= line_length)
+	while(i <= 20)
     {
-        ratio = (float)i / line_length;
-        px = center_x + (end_x - center_x) * ratio;
-        py = center_y + (end_y - center_y) * ratio;
-        if (px >= 0 && px < WIN_WIDTH && py >= 0 && py < WIN_HEIGHT)
+        line.ratio = (double)i / 20;
+        line.px = line.center_x + (line.end_x - line.center_x) * line.ratio;
+        line.py = line.center_y + (line.end_y - line.center_y) * line.ratio;
+        if (line.px >= 0 && line.px < game->win_width && line.py >= 0 && line.py < game->win_heigth)
         {
-            pixel = py * game->line_length + px * (game->bits_per_pixel / 8);
-            *(unsigned int*)(game->add + pixel) = RED;
+            line.pixel = line.py * game->line_length + line.px * (game->bits_per_pixel / 8);
+            *(unsigned int*)(game->add + line.pixel) = RED;
         }
 		i++;
     }
@@ -104,12 +64,12 @@ void render_map(t_game *game)
 	int x;
 	int y;
 
-    ft_memset(game->add, 0, WIN_WIDTH * WIN_HEIGHT * (game->bits_per_pixel / 8));
+    ft_memset(game->add, 0, game->win_width * game->win_heigth * (game->bits_per_pixel / 8));
 	y = 0;
     while (y < game->map.height)
     {
 		x = 0;
-        while(x < game->map.width)
+        while(x < (int)ft_strlen(game->map.grid[y]))
         {
             if (game->map.grid[y][x] == '1')
                 draw_square(game, x, y, 0x333333); 

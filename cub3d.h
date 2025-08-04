@@ -6,7 +6,7 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:08:39 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/04 14:13:46 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/08/04 18:43:38 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,6 @@
 # define MAGENTA	0xFF00FF
 # define CYAN		0x00FFFF
 
-# define MAX_COLOR_VALUE 255
-# define MIN_COLOR_VALUE 0
-
-# define WIN_WIDTH 1024
-# define WIN_HEIGHT 768
 # define WIN_TITLE	"cub3D"
 # define TILE_SIZE 32
 
@@ -54,8 +49,8 @@
 # define KEY_ESC 53
 
 /* Movement speed */
-# define MOVE_SPEED 0.1
-# define ROT_SPEED 0.1
+# define MOVE_SPEED 0.15
+# define ROT_SPEED 0.15
 
 //////////////////////////////////   END COLORS   ///////////////////////////
 
@@ -77,8 +72,6 @@ typedef struct s_player
 	double	y;
 	double	dir_x;
 	double	dir_y;
-	double	plane_x;
-	double	plane_y;
 }	t_player;
 
 typedef struct s_map
@@ -110,6 +103,9 @@ typedef	struct s_game
 	t_map		map;
 	t_player	player;
 
+	int win_width;
+	int win_heigth;
+
 	// flags
 	int no_parsed;
 	int so_parsed;
@@ -119,6 +115,18 @@ typedef	struct s_game
 	int c_parsed;
 }	t_game;
 
+typedef struct s_line
+{
+	int center_x;
+	int center_y;
+	int line_length;
+	int end_x;
+	int end_y;
+	double ratio;
+	int px;
+	int py;
+	int pixel;
+}	t_line;
 ///////////////// Init ///////////////////////
 
 void init_game(t_game *game);

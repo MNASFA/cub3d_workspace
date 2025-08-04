@@ -6,7 +6,7 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 10:33:45 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/04 10:37:34 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/08/04 19:45:46 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,21 @@ int init_mlx(t_game *game)
 		return (0);
 	}
 
-    game->win = mlx_new_window(game->mlx, WIN_WIDTH, WIN_HEIGHT, WIN_TITLE);
+    game->win = mlx_new_window(game->mlx, game->win_width, game->win_heigth, WIN_TITLE);
     if (!game->win)
     {
         print_error("Failed to create window");
         return (0);
     }
 
-    game->img = mlx_new_image(game->mlx, WIN_WIDTH, WIN_HEIGHT);
+    game->img = mlx_new_image(game->mlx, game->win_width, game->win_heigth);
     if (!game->img)
     {
         print_error("Failed to create image buffer");
         return (0);
     }
 
-    game->add = mlx_get_data_addr(
-        game->img,
-        &game->bits_per_pixel,
-        &game->line_length,
-        &game->endian
-    );
+    game->add = mlx_get_data_addr(game->img, &game->bits_per_pixel, &game->line_length, &game->endian);
     if (!game->add)
     {
         print_error("Failed to get image data address");
