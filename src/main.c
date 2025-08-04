@@ -6,7 +6,7 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:56:23 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/07/15 13:56:24 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/08/04 13:18:28 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,25 @@
 
 int main(int ac, char **av)
 {
-    // t_game game;
+    t_game game;
 
     if (ac != 2)
     {
         write (2, "Usage : ./cub3D <map.cub>\n", 27);
         return (1);
     }
-    if (parse_cub_file(av[1]) != 0)
+
+    init_game(&game);
+
+    if (parse_cub_file(av[1], &game) == 0)
     {
         write (2, "error parsing map\n", 19);
         return (1);
     }
+
+    init_mlx(&game);
+    render_map(&game);
+    mlx_hook(game.win, 2, 1L<<0, handle_keypress, &game);
+    mlx_loop(game.mlx);
     return (0);
 }
