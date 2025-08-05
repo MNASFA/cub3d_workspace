@@ -39,7 +39,6 @@ int parse_map(char **lines, int start, t_game *game)
     height = get_map_height(lines, start);
     width = get_map_width(lines, start);
     i = 0;
-
     game->map.grid = malloc(sizeof(char *) * (height + 1));
     if (!game->map.grid)
         return(print_error("Memory allocation failed in map"), 0);
@@ -56,7 +55,9 @@ int parse_map(char **lines, int start, t_game *game)
         start++;
     }
     game->map.grid[i] = NULL;
-    game->map.width = width;
+    game->map.width = width - 1;
     game->map.height = height;
+    game->win_width = (width - 1) * TILE_SIZE;
+    game->win_heigth = height * TILE_SIZE;
     return (1);
 }
