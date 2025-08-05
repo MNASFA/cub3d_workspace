@@ -4,7 +4,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -Iinclude -I$(MLX_DIR) -fsanitize=address -g3
 SRC_DIR = src
 MLX_DIR = minilibx
-HEADER = cub3D.h
+HEADER = cub3d.h
 
 MLX = $(MLX_DIR)/libmlx.a
 

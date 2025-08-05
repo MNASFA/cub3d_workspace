@@ -6,7 +6,7 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:08:39 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/04 18:43:38 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/08/05 09:54:46 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 # include <math.h>
 # include <limits.h>
 # include <fcntl.h>
-# include <string.h>
-# include "minilibx/mlx.h"
+# include <string.h>   
+# include "minilibx/mlx.h" 
 
 /// for get next line
-# define BUFFER_SIZE 42
+# define BUFFER_SIZE 42   
 
 
 //////////////////////////////////   START COLORS   ///////////////////////////
