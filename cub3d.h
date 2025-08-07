@@ -6,7 +6,7 @@
 /*   By: aboukhmi <aboukhmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:08:39 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/06 20:01:08 by aboukhmi         ###   ########.fr       */
+/*   Updated: 2025/08/07 11:22:58 by aboukhmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 
 /// for get next line   
 # define BUFFER_SIZE 42   
-
 
 //////////////////////////////////   START COLORS   ///////////////////////////
 
@@ -72,8 +71,8 @@ typedef struct s_player
 	double	y;
 	double	dir_x;
 	double	dir_y;
-	double	plan_x;
-	double	plan_y;
+	double	plane_x;
+	double	plane_y;
 }	t_player;
 
 typedef struct s_map
@@ -107,6 +106,7 @@ typedef	struct s_game
 
 	int win_width;
 	int win_heigth;
+	char dir;
 
 	// flags
 	int no_parsed;
@@ -176,5 +176,6 @@ int		is_player(char c);
 int		init_mlx(t_game *game);
 void	render_map(t_game *game);
 int		handle_keypress(int keycode, t_game *game);
+void	init_player_direction(t_player *player, char spawn_dir);
 
 #endif

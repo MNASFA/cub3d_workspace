@@ -70,6 +70,7 @@ int validate_map(t_game *game)
                 {
                     if (game->map.player_count == 1)
                         return (print_error("Multiple player positions"), 0);
+                    game->dir = c;
                     game->player.x = x + 0.5;
                     game->player.y = y + 0.5;
                     set_player_orientation(game, c);
