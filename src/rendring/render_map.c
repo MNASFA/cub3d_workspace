@@ -6,7 +6,7 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 10:49:06 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/04 18:43:28 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/08/05 14:15:48 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ void render_map(t_game *game)
         while(x < (int)ft_strlen(game->map.grid[y]))
         {
             if (game->map.grid[y][x] == '1')
-                draw_square(game, x, y, 0x333333); 
+                draw_square(game, x, y, GRAY);
             else if (game->map.grid[y][x] == '0' || is_player(game->map.grid[y][x]))
-                draw_square(game, x, y, 0xFFFFFF);
+                draw_square(game, x, y, WHITE);
 			x++;
         }
 		y++;

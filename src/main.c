@@ -6,11 +6,23 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:56:23 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/04 13:18:28 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/08/05 11:25:03 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void print_map_grid(t_game *game)
+{
+	int i = 0;
+
+	printf("🗺️ Map Grid:\n");
+	while (game->map.grid[i])
+	{
+		printf("MAP[%d]: %s\n", i, game->map.grid[i]);
+		i++;
+	}
+}
 
 int main(int ac, char **av)
 {
@@ -30,6 +42,7 @@ int main(int ac, char **av)
         return (1);
     }
 
+    print_map_grid(&game);
     init_mlx(&game);
     render_map(&game);
     mlx_hook(game.win, 2, 1L<<0, handle_keypress, &game);

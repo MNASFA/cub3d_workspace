@@ -6,7 +6,7 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:08:39 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/05 09:54:46 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/08/07 13:21:42 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@
 # define WHITE		0xFFFFFF
 # define RED		0xFF0000
 # define GREEN		0x00FF00
-# define BLUE		0x0000FF
-# define YELLOW		0xFFFF00
-# define MAGENTA	0xFF00FF
-# define CYAN		0x00FFFF
+# define GRAY		0x333333
 
 # define WIN_TITLE	"cub3D"
 # define TILE_SIZE 32
