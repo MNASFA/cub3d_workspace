@@ -57,7 +57,7 @@ int parse_map(char **lines, int start, t_game *game)
     game->map.grid[i] = NULL;
     game->map.width = width - 1;
     game->map.height = height;
-    game->win_width = (width - 1) * TILE_SIZE;
-    game->win_heigth = height * TILE_SIZE;
+    game->win_width = 1024;
+    game->win_heigth = 768;
     return (1);
 }

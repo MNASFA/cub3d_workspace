@@ -6,7 +6,7 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:56:23 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/05 11:25:03 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/08/07 13:24:12 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,13 @@ int main(int ac, char **av)
     }
 
     init_game(&game);
-
+    
     if (parse_cub_file(av[1], &game) == 0)
     {
         write (2, "error parsing map\n", 19);
         return (1);
     }
-
-    print_map_grid(&game);
+    init_player_direction(&(game.player), game.dir);
     init_mlx(&game);
     render_map(&game);
     mlx_hook(game.win, 2, 1L<<0, handle_keypress, &game);
