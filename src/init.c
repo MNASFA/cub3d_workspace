@@ -28,7 +28,7 @@ void init_game(t_game *game)
     game->east.path = NULL;
     //camer
     game->player.plan_x = -0.66 * game->player.dir_x;
-    game->player.plan_y = -0.66 * game->player.dir_y;
+    game->player.plan_y = 0.66 * game->player.dir_y;
     // parsing flags
     game->no_parsed = 0;
     game->so_parsed = 0;
