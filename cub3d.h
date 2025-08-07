@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aboukhmi <aboukhmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:08:39 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/05 09:54:46 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/08/06 20:01:08 by aboukhmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <string.h>   
 # include "minilibx/mlx.h" 
 
-/// for get next line
+/// for get next line   
 # define BUFFER_SIZE 42   
 
 
@@ -72,6 +72,8 @@ typedef struct s_player
 	double	y;
 	double	dir_x;
 	double	dir_y;
+	double	plan_x;
+	double	plan_y;
 }	t_player;
 
 typedef struct s_map
