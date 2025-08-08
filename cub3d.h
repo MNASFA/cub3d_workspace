@@ -6,7 +6,7 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:08:39 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/07 13:24:15 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/08/08 21:33:08 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <limits.h>
 # include <fcntl.h>
 # include <string.h>   
-# include "minilibx/mlx.h" 
+# include "minilibx/mlx.h"
 
 /// for get next line   
 # define BUFFER_SIZE 42   
@@ -175,4 +175,6 @@ void	render_map(t_game *game);
 int		handle_keypress(int keycode, t_game *game);
 void	init_player_direction(t_player *player, char spawn_dir);
 
+void cast_rays(t_game *game, int x);
+void draw_background(t_game *game);
 #endif

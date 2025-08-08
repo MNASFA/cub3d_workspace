@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aboukhmi <aboukhmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 12:56:16 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/04 18:13:40 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/08/08 15:59:24 by aboukhmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,15 @@ static int is_walkable(t_game *game, double new_x, double new_y)
 void rotate_player(t_player *player, double angle)
 {
     double old_dir_x;
+    double old_plane_x;
 
     old_dir_x = player->dir_x;
     player->dir_x = player->dir_x * cos(angle) - player->dir_y * sin(angle);
     player->dir_y = old_dir_x * sin(angle) + player->dir_y * cos(angle);
+
+    old_plane_x = player->plane_x;
+    player->plane_x = player->plane_x * cos(angle) - player->plane_y * sin(angle);
+    player->plane_y = old_plane_x * sin(angle) + player->plane_y * cos(angle);
 }
 
 int handle_keypress(int keycode, t_game *game)
@@ -71,9 +76,9 @@ int handle_keypress(int keycode, t_game *game)
         new_y += game->player.dir_x * MOVE_SPEED;
     }
     if (keycode == KEY_LEFT)
-        rotate_player(&game->player, ROT_SPEED);
-    if (keycode == KEY_RIGHT)
         rotate_player(&game->player, -ROT_SPEED);
+    if (keycode == KEY_RIGHT)
+        rotate_player(&game->player, ROT_SPEED);
     else if (keycode == KEY_ESC)
         exit_game(game);
 
