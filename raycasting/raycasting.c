@@ -56,21 +56,21 @@ void perform_dda(t_game *game, double ray_dir_x, double ray_dir_y, int *map_x, i
 {
     double delta_dist_x;
     double delta_dist_y;
-    double side_dist_x;
-    double side_dist_y;
+    double side_dist_x;//side_dist_x: Distance the ray needs to travel to reach the next vertical grid line
+    double side_dist_y;//side_dist_y: Distance the ray needs to travel to reach the next horizontal grid line
     int step_x;
     int step_y;
     int hit;
 
     hit = 0;
-    *map_x = (int)game->player.x;
+    *map_x = (int)game->player.x;//will stockes the cordinate of the wall
     *map_y = (int)game->player.y;
-    delta_dist_x = fabs(1 / ray_dir_x);
+    delta_dist_x = fabs(1 / ray_dir_x);//bax ray yzid b1 step x7al khasso fdistance
     delta_dist_y = fabs(1 / ray_dir_y);
     if (ray_dir_x < 0)
     {
         step_x = -1;
-        side_dist_x = (game->player.x - *map_x) * delta_dist_x;
+        side_dist_x = (game->player.x - *map_x) * delta_dist_x; //kn7ydo f2axmn gride kynin 7na db o kndrbo fdik delta bax nzido exactement bwa7d gride
     }
     else
     {
@@ -119,8 +119,8 @@ void calculate_wall_dimensions(t_game *game, double ray_dir_x, double ray_dir_y,
     if (side == 0)
         perp_wall_dist = (map_x - game->player.x + (1 - step_x) / 2) / ray_dir_x;
     else
-        perp_wall_dist = (map_y - game->player.y + (1 - step_y) / 2) / ray_dir_y;
-    *line_height = (int)(game->win_heigth / perp_wall_dist);
+        perp_wall_dist = (map_y - game->player.y + (1 - step_y) / 2) / ray_dir_y;//ray dir i s equalt to cos or sin alpha
+    *line_height = (int)(game->win_heigth / perp_wall_dist);//dividing by prepwall gives the view when we are near and when we ar
     *draw_start = -(*line_height) / 2 + game->win_heigth / 2;
     if (*draw_start < 0)
         *draw_start = 0;
@@ -139,6 +139,24 @@ void draw_wall_line(t_game *game,int x, int side, int draw_start, int draw_end)
         color = 0x00FF00;
     draw_vertical_line(game, x, draw_start, draw_end, color);
 }
+int get_wall_direction(double ray_dir_x, double ray_dir_y, int side)
+{
+    if (side == 0)
+    {
+        if (ray_dir_x > 0)
+            return EAST;
+        else
+            return WEST; 
+    }
+    else
+    {
+        if (ray_dir_y > 0)
+            return SOUTH;
+        else
+            return NORTH;
+    }
+}
+
 void cast_rays(t_game *game, int x)
 {
     double ray_dir_x;
@@ -149,10 +167,12 @@ void cast_rays(t_game *game, int x)
     int line_height;
     int draw_start;
     int draw_end;
+    int text;
 
     calculate_ray_direction(game, x, &ray_dir_x, &ray_dir_y);
     perform_dda(game, ray_dir_x, ray_dir_y, &map_x, &map_y, &side);
     calculate_wall_dimensions(game, ray_dir_x, ray_dir_y, map_x, map_y, side, 
                              &line_height, &draw_start, &draw_end);
+    text = get_wall_direction(ray_dir_x, ray_dir_y, side);
     draw_wall_line(game, x, side, draw_start, draw_end);
 }
