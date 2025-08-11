@@ -157,6 +157,19 @@ int get_wall_direction(double ray_dir_x, double ray_dir_y, int side)
     }
 }
 
+void setup_textures(t_game *game)
+{
+    game->east.img = mlx_xpm_file_to_image(game->mlx, "../textures/east_wall.xpm", &game->east.width, &game->east.height);
+    game->east.add = mlx_get_data_addr(game->east.img, &game->east.bits_per_pexel, &game->east.line_height, &game->east.endian);
+    game->north.img = mlx_xpm_file_to_image(game->mlx, "../textures/north_wall.xpm", &game->north.width, &game->north.height);
+    game->north.add = mlx_get_data_addr(game->north.img, &game->north.bits_per_pexel, &game->north.line_height, &game->north.endian);
+    game->south.img = mlx_xpm_file_to_image(game->mlx, "../textures/south_wall.xpm", &game->south.width, &game->south.height);
+    game->south.add = mlx_get_data_addr(game->south.img, &game->south.bits_per_pexel, &game->south.line_height, &game->south.endian);
+    game->west.img = mlx_xpm_file_to_image(game->mlx, "../textures/west_wall.xpm", &game->west.width, &game->west.height);
+    game->west.add = mlx_get_data_addr(game->west.img, &game->west.bits_per_pexel, &game->west.line_height, &game->west.endian);
+
+}
+
 void cast_rays(t_game *game, int x)
 {
     double ray_dir_x;
