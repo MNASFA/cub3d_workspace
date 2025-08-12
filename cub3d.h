@@ -6,7 +6,7 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:08:39 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/08 21:33:08 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/08/12 09:33:03 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@
 /* Movement speed */
 # define MOVE_SPEED 0.15
 # define ROT_SPEED 0.15
+#define SENSITIVITY 0.002
 
 //////////////////////////////////   END COLORS   ///////////////////////////
 
@@ -174,6 +175,7 @@ int		init_mlx(t_game *game);
 void	render_map(t_game *game);
 int		handle_keypress(int keycode, t_game *game);
 void	init_player_direction(t_player *player, char spawn_dir);
+int		mouse_movement(void *param);
 
 void cast_rays(t_game *game, int x);
 void draw_background(t_game *game);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboukhmi <aboukhmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 12:56:16 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/08 15:59:24 by aboukhmi         ###   ########.fr       */
+/*   Updated: 2025/08/12 09:32:11 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,36 @@ int handle_keypress(int keycode, t_game *game)
         game->player.x = new_x;
         game->player.y = new_y;
         render_map(game);
+    }
+    return (0);
+}
+int mouse_movement(void *param)
+{
+    t_game *game = (t_game *)param;
+    int mouse_x;
+    int mouse_y;
+    int center_x = game->win_width / 2;
+    int center_y = game->win_heigth / 2;
+
+    // Get current mouse position
+    mlx_mouse_get_pos(game->win, &mouse_x, &mouse_y);
+
+    // Calculate horizontal movement
+    int delta_x = mouse_x - center_x;
+
+    if (delta_x != 0)
+    {
+        // Rotate player
+        game->player.dir_x += delta_x * SENSITIVITY;
+
+        // Keep dir within 0..2π
+        if (game->player.dir_x < 0)
+            game->player.dir_x += 2 * M_PI;
+        else if (game->player.dir_x >= 2 * M_PI)
+            game->player.dir_x -= 2 * M_PI;
+
+        // Reset mouse to center
+        mlx_mouse_move(game->win, center_x, center_y);
     }
     return (0);
 }
