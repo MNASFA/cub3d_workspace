@@ -6,7 +6,7 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 10:49:06 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/08 21:33:16 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/08/14 13:42:28 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,5 @@ void render_map(t_game *game)
 		y++;
     }
     // draw_direction_line(game);
-    mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
+    // mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 }

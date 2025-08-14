@@ -6,7 +6,7 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 12:56:16 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/12 09:32:11 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/08/14 21:01:42 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void exit_game(t_game *game)
 {
     mlx_destroy_image(game->mlx, game->img);
     mlx_destroy_window(game->mlx, game->win);
-    // free later
+    // free at exit
     exit(0);
 }
 
@@ -87,37 +87,39 @@ int handle_keypress(int keycode, t_game *game)
     {
         game->player.x = new_x;
         game->player.y = new_y;
-        render_map(game);
+        render_game_with_minimap(game);
     }
     return (0);
 }
-int mouse_movement(void *param)
+
+int handle_mouse_move(int x, int y, t_game *game)
 {
-    t_game *game = (t_game *)param;
-    int mouse_x;
-    int mouse_y;
-    int center_x = game->win_width / 2;
-    int center_y = game->win_heigth / 2;
-
-    // Get current mouse position
-    mlx_mouse_get_pos(game->win, &mouse_x, &mouse_y);
-
-    // Calculate horizontal movement
-    int delta_x = mouse_x - center_x;
-
-    if (delta_x != 0)
+    static int  last_x;
+    static int  last_y;
+    int         delta_x;
+    int         delta_y;
+    double rotation_angle;
+    
+    last_x = -1;
+    last_y = -1;
+    if (last_x == -1 && last_y == -1)
     {
-        // Rotate player
-        game->player.dir_x += delta_x * SENSITIVITY;
-
-        // Keep dir within 0..2π
-        if (game->player.dir_x < 0)
-            game->player.dir_x += 2 * M_PI;
-        else if (game->player.dir_x >= 2 * M_PI)
-            game->player.dir_x -= 2 * M_PI;
-
-        // Reset mouse to center
-        mlx_mouse_move(game->win, center_x, center_y);
+        last_x = x;
+        last_y = y;
+        return (0);
     }
+    delta_x = x - last_x;
+    delta_y = y - last_y;
+    if (delta_x != 0 || delta_y != 0)
+    {
+        if (delta_x != 0)
+        {
+            double rotation_angle = delta_x * SENSITIVITY;
+            rotate_player(&game->player, rotation_angle);
+        }
+        render_game_with_minimap(game);
+    }
+    last_x = x;
+    last_y = y;
     return (0);
 }

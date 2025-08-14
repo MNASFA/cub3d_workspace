@@ -6,7 +6,7 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:08:39 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/12 09:33:03 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/08/14 19:01:21 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@
 
 # define WIN_TITLE	"cub3D"
 # define TILE_SIZE 32
+# define MINIMAP_SIZE 130
+# define MINIMAP_SCALE 0.3 
+# define MINIMAP_MARGIN 5
 
 # define KEY_W 13
 # define KEY_A 0
@@ -46,8 +49,9 @@
 
 /* Movement speed */
 # define MOVE_SPEED 0.15
+# define MOUSE_SPEED 0.05
 # define ROT_SPEED 0.15
-#define SENSITIVITY 0.002
+# define SENSITIVITY 0.002
 
 //////////////////////////////////   END COLORS   ///////////////////////////
 
@@ -81,6 +85,11 @@ typedef struct s_map
 	int		player_count;
 }	t_map;
 
+typedef struct s_mouse {
+    int x;
+    int y;
+} t_mouse;
+
 typedef	struct s_game
 {
 	void	*mlx;
@@ -101,10 +110,15 @@ typedef	struct s_game
 
 	t_map		map;
 	t_player	player;
+	t_mouse mouse;
 
 	int win_width;
 	int win_heigth;
 	char dir;
+
+	// minimap
+	void *minimap_img;
+	char *minimap_addr;
 
 	// flags
 	int no_parsed;
@@ -117,6 +131,8 @@ typedef	struct s_game
 
 typedef struct s_line
 {
+	int start_x;
+	int start_y;
 	int center_x;
 	int center_y;
 	int line_length;
@@ -175,8 +191,9 @@ int		init_mlx(t_game *game);
 void	render_map(t_game *game);
 int		handle_keypress(int keycode, t_game *game);
 void	init_player_direction(t_player *player, char spawn_dir);
-int		mouse_movement(void *param);
-
-void cast_rays(t_game *game, int x);
-void draw_background(t_game *game);
+int		handle_mouse_move(int x, int y, t_game *game);
+void	render_minimap_corner(t_game *game);
+void	render_game_with_minimap(t_game *game);
+void	cast_rays(t_game *game, int x);
+void	draw_background(t_game *game);
 #endif
