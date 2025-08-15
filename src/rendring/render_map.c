@@ -6,7 +6,7 @@
 /*   By: aboukhmi <aboukhmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 10:49:06 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/08 17:13:35 by aboukhmi         ###   ########.fr       */
+/*   Updated: 2025/08/15 15:34:11 by aboukhmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,16 @@ void render_map(t_game *game)
     ft_memset(game->add, 0, game->win_width * game->win_heigth * (game->bits_per_pixel / 8));
 	y = 0;
 	draw_background(game);
-    while (y < game->map.height)
-    {
+    // while (y < game->map.height)
+    // {
 		x = 0;
         while(x < game->win_width)
         {
             cast_rays(game, x);
 			x++;
         }
-		y++;
-    }
+	// 	y++;
+    // }
     // draw_direction_line(game);
     mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 }

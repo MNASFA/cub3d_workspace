@@ -153,7 +153,7 @@ void calculate_wall_dimensions(t_game *game, double ray_dir_x, double ray_dir_y,
     if (side == 0)
         wall_x = game->player.y +  perp_wall_dist * ray_dir_y;
     else
-        wall_x = game->player.x +   perp_wall_dist * ray_dir_x;
+        wall_x = game->player.x +  perp_wall_dist * ray_dir_x;
     wall_x = wall_x - floor(wall_x);
     *texture_x = (int)(wall_x * game->east.width);
     if (*texture_x >= game->north.width) 
