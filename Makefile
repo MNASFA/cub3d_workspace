@@ -1,7 +1,7 @@
 NAME = cub3D
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Iinclude -I$(MLX_DIR) -Ofast
+CFLAGS = -Wall -Wextra -Werror -Iinclude -I$(MLX_DIR) -Ofast -fsanitize=address -g3
 SRC_DIR = src
 MLX_DIR = minilibx
 HEADER = cub3d.h raycasting/raycasting.h

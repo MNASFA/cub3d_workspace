@@ -27,18 +27,16 @@ void draw_background(t_game *game)
     }
 }
 
-void draw_wall_line_text(t_game *game, int x, int start, int end, int texture, int texture_x)
+void draw_wall_line_text(t_game *game, int x, int start, int end, int texture, int texture_x, int real_line_height)
 {
     int y;
     char *pixel;
     t_texture text;
     char *addresse_color;
     int texture_y;
-    int line_height;
-    // int color;
+    double step;
+    double tex_pos;
 
-    (void)end;
-    y = start;
     if (texture == NORTH)
         text = game->north;
     else if(texture == EAST)
@@ -47,18 +45,26 @@ void draw_wall_line_text(t_game *game, int x, int start, int end, int texture, i
         text = game->west;
     else
         text = game->south;
-    line_height = end - start + 1;
+    step = (double)text.height / (double)real_line_height;
+    int wall_center = game->win_heigth / 2;
+    int wall_start = wall_center - real_line_height / 2;
+    tex_pos = (start - wall_start) * step;
+    
+    y = start;
     while (y <= end)
     {
-            texture_y = ((y - start) * text.height) / line_height;
-            if (texture_y >= text.height) 
-                texture_y = text.height - 1;
-            if (texture_y < 0)
-                texture_y = 0;
-            addresse_color =  text.add + (texture_y * text.line_height) + texture_x * (text.bits_per_pexel / 8);
-            pixel = game->add + (y * game->line_length) + x * (game->bits_per_pixel / 8);
-            *(unsigned int*)pixel = *(unsigned int *)addresse_color;
-            y++;
+        texture_y = (int)tex_pos;
+        if (texture_y >= text.height) 
+            texture_y = text.height - 1;
+        if (texture_y < 0)
+            texture_y = 0;
+            
+        addresse_color = text.add + (texture_y * text.line_height) + texture_x * (text.bits_per_pexel / 8);
+        pixel = game->add + (y * game->line_length) + x * (game->bits_per_pixel / 8);
+        *(unsigned int*)pixel = *(unsigned int *)addresse_color;
+        
+        tex_pos += step;
+        y++;
     }
 }
 
@@ -87,6 +93,10 @@ void perform_dda(t_game *game, double ray_dir_x, double ray_dir_y, int *map_x, i
     hit = 0;
     *map_x = (int)game->player.x;//will stockes the cordinate of the wall
     *map_y = (int)game->player.y;
+    // if (fabs(ray_dir_x - 1) <= 0.01)
+    //     ray_dir_x += 1;
+    // if (fabs(ray_dir_y - 1) <= 0.01)
+    //     ray_dir_y += 1;
     delta_dist_x = fabs(1 / ray_dir_x);//bax ray yzid b1 step x7al khasso fdistance
     delta_dist_y = fabs(1 / ray_dir_y);
     if (ray_dir_x < 0)
@@ -147,6 +157,8 @@ void calculate_wall_dimensions(t_game *game, double ray_dir_x, double ray_dir_y,
     *draw_start = -(*line_height) / 2 + game->win_heigth / 2;
     if (*draw_start < 0)
         *draw_start = 0;
+    if (perp_wall_dist < 0.1)
+        perp_wall_dist = 0.1;
     *draw_end = (*line_height) / 2 + game->win_heigth / 2;
     if (*draw_end >= game->win_heigth)
         *draw_end = game->win_heigth - 1;
@@ -155,7 +167,7 @@ void calculate_wall_dimensions(t_game *game, double ray_dir_x, double ray_dir_y,
     else
         wall_x = game->player.x +  perp_wall_dist * ray_dir_x;
     wall_x = wall_x - floor(wall_x);
-    *texture_x = (int)(wall_x * game->east.width);
+    *texture_x = (int)(wall_x * game->north.width);
     if (*texture_x >= game->north.width) 
         *texture_x = game->north.width - 1;
     if (*texture_x < 0)
@@ -228,5 +240,5 @@ void cast_rays(t_game *game, int x)
     calculate_wall_dimensions(game, ray_dir_x, ray_dir_y, map_x, map_y, side, 
                              &line_height, &draw_start, &draw_end, &texture_x);
     text = get_wall_direction(ray_dir_x, ray_dir_y, side);
-    draw_wall_line_text(game, x, draw_start, draw_end,text, texture_x);
+    draw_wall_line_text(game, x, draw_start, draw_end, text, texture_x, line_height);
 }
