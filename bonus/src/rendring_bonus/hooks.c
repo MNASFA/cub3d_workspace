@@ -6,11 +6,11 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 12:56:16 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/14 21:28:14 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/08/14 21:38:17 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cub3d.h"
+#include "../../cub3d_bonus.h"
 
 void exit_game(t_game *game)
 {
@@ -94,17 +94,22 @@ int handle_keypress(int keycode, t_game *game)
 
 int handle_mouse_move(int x, int y, t_game *game)
 {
-    static int last_x = -1;
-    static int last_y = -1;
+    static int  last_x;
+    static int  last_y;
+    int         delta_x;
+    int         delta_y;
+    double rotation_angle;
     
+    last_x = -1;
+    last_y = -1;
     if (last_x == -1 && last_y == -1)
     {
         last_x = x;
         last_y = y;
         return (0);
     }
-    int delta_x = x - last_x;
-    int delta_y = y - last_y;
+    delta_x = x - last_x;
+    delta_y = y - last_y;
     if (delta_x != 0 || delta_y != 0)
     {
         if (delta_x != 0)
@@ -114,10 +119,7 @@ int handle_mouse_move(int x, int y, t_game *game)
         }
         render_game_with_minimap(game);
     }
-    
-    // Update last position
     last_x = x;
     last_y = y;
-    
     return (0);
 }
