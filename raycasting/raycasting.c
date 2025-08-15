@@ -27,7 +27,7 @@ void draw_background(t_game *game)
     }
 }
 
-void draw_wall_line_text(t_game *game, int x, int start, int end, int texture)
+void draw_wall_line_text(t_game *game, int x, int start, int end, int texture, int texture_x)
 {
     int y;
     char *pixel;
@@ -53,7 +53,9 @@ void draw_wall_line_text(t_game *game, int x, int start, int end, int texture)
             texture_y = ((y - start) * text.height) / line_height;
             if (texture_y >= text.height) 
                 texture_y = text.height - 1;
-            addresse_color =  text.add + (texture_y * text.line_height) + x * (text.bits_per_pexel / 8);
+            if (texture_y < 0)
+                texture_y = 0;
+            addresse_color =  text.add + (texture_y * text.line_height) + texture_x * (text.bits_per_pexel / 8);
             pixel = game->add + (y * game->line_length) + x * (game->bits_per_pixel / 8);
             *(unsigned int*)pixel = *(unsigned int *)addresse_color;
             y++;
@@ -129,10 +131,11 @@ void perform_dda(t_game *game, double ray_dir_x, double ray_dir_y, int *map_x, i
 
 void calculate_wall_dimensions(t_game *game, double ray_dir_x, double ray_dir_y, 
                               int map_x, int map_y, int side, 
-                              int *line_height, int *draw_start, int *draw_end)
+                              int *line_height, int *draw_start, int *draw_end, double *texture_x)
 {
     double perp_wall_dist;
     int step_x, step_y;
+    double wall_x;
 
     step_x = (ray_dir_x < 0) ? -1 : 1;
     step_y = (ray_dir_y < 0) ? -1 : 1;
@@ -147,6 +150,17 @@ void calculate_wall_dimensions(t_game *game, double ray_dir_x, double ray_dir_y,
     *draw_end = (*line_height) / 2 + game->win_heigth / 2;
     if (*draw_end >= game->win_heigth)
         *draw_end = game->win_heigth - 1;
+    if (side == 0)
+        wall_x = game->player.y +  perp_wall_dist * ray_dir_y;
+    else
+        wall_x = game->player.x +   perp_wall_dist * ray_dir_x;
+    wall_x = wall_x - floor(wall_x);
+    *texture_x = (int)(wall_x * game->east.width);
+    if (*texture_x >= game->north.width) 
+        *texture_x = game->north.width - 1;
+    if (*texture_x < 0)
+        *texture_x = 0;
+
 }
 
 // void draw_wall_line(t_game *game,int x, int side, int draw_start, int draw_end)
@@ -207,11 +221,12 @@ void cast_rays(t_game *game, int x)
     int draw_start;
     int draw_end;
     int text;
+    double texture_x;
 
     calculate_ray_direction(game, x, &ray_dir_x, &ray_dir_y);
     perform_dda(game, ray_dir_x, ray_dir_y, &map_x, &map_y, &side);
     calculate_wall_dimensions(game, ray_dir_x, ray_dir_y, map_x, map_y, side, 
-                             &line_height, &draw_start, &draw_end);
+                             &line_height, &draw_start, &draw_end, &texture_x);
     text = get_wall_direction(ray_dir_x, ray_dir_y, side);
-    draw_wall_line_text(game, x, draw_start, draw_end,text);
+    draw_wall_line_text(game, x, draw_start, draw_end,text, texture_x);
 }
