@@ -6,11 +6,33 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 16:46:05 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/15 17:02:44 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/08/15 21:28:13 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
+
+// static int is_valid_integer(char *str)
+// {
+//     int i = 0;
+    
+
+//     while (str[i] == ' ' || str[i] == '\t')
+//         i++;
+    
+//     if (str[i] < '0' || str[i] > '9')
+//         return (0);
+
+//     while (str[i] && str[i] != ' ' && str[i] != '\t')
+//     {
+//         if (str[i] < '0' || str[i] > '9')
+//             return (0);
+//         i++;
+//     }
+//     while (str[i] == ' ' || str[i] == '\t')
+//         i++;
+//     return (1);
+// }
 
 static int has_consecutive_commas(char *str)
 {
@@ -29,6 +51,8 @@ static int parse_rgb(char *str, int *value)
 {
     int num;
 
+    // if (!is_valid_integer(str))
+    //     return (0);
     num = ft_atoi(str);
     if (num < 0 || num > 255)
         return (0);

@@ -6,7 +6,7 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 12:51:16 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/14 16:45:01 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/08/15 22:08:59 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,9 +149,9 @@ void render_minimap_corner(t_game *game)
             if (y >= 0 && y < game->map.height && x >= 0 && x < (int)ft_strlen(game->map.grid[y]))
             {
                 if (game->map.grid[y][x] == '1')
-                    draw_minimap_square(game, x, y, GRAY);
+                    draw_minimap_square(game, x, y, GRAY_OPACITY);
                 else if (game->map.grid[y][x] == '0' || is_player(game->map.grid[y][x]))
-                    draw_minimap_square(game, x, y, WHITE);
+                    draw_minimap_square(game, x, y, WHITE_OPACITY);
             }
             x++;
         }

@@ -36,32 +36,25 @@ int is_valid_position(char **grid, int height, int x, int y)
         if (x >= ft_strlen(grid[y - 1]) || grid[y - 1][x] == ' ')
             return (0); 
     }
-    
-    // Check DOWN  
     if (y < height - 1)
     {
         if (x >= ft_strlen(grid[y + 1]) || grid[y + 1][x] == ' ')
-            return (0);  // Below is out of bounds or space
+            return (0);
     }
-    
-    // Check LEFT
     if (x > 0)
     {
         if (grid[y][x - 1] == ' ')
-            return (0);  // Left is space
+            return (0);
     }
-    
-    // Check RIGHT
     int current_len = ft_strlen(grid[y]);
     if (grid[y][current_len - 1] == '\n')
         current_len--;
     if (x < current_len - 1)
     {
         if (grid[y][x + 1] == ' ')
-            return (0);  // Right is space
+            return (0);
     }
-    
-    return (1);  // All sides are valid
+    return (1);
 }
 
 int validate_map(t_game *game)

@@ -6,7 +6,7 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:08:39 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/14 19:01:21 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/08/15 22:08:38 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@
 # define RED		0xFF0000
 # define GREEN		0x00FF00
 # define GRAY		0x333333
+
+# define GRAY_OPACITY       0x555555
+# define WHITE_OPACITY      0xCCCCCC
+# define RED_OPACITY        0xAA0000 
 
 # define WIN_TITLE	"cub3D"
 # define TILE_SIZE 32
