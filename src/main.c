@@ -6,7 +6,7 @@
 /*   By: aboukhmi <aboukhmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:56:23 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/07 10:18:33 by aboukhmi         ###   ########.fr       */
+/*   Updated: 2025/08/15 11:11:56 by aboukhmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int main(int ac, char **av)
     }
     init_player_direction(&(game.player), game.dir);
     init_mlx(&game);
+    setup_textures(&game);
     render_map(&game);
     mlx_hook(game.win, 2, 1L<<0, handle_keypress, &game);
     mlx_loop(game.mlx);

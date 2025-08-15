@@ -6,7 +6,7 @@
 /*   By: aboukhmi <aboukhmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:08:39 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/08 16:37:47 by aboukhmi         ###   ########.fr       */
+/*   Updated: 2025/08/12 11:45:42 by aboukhmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,4 +180,5 @@ void	init_player_direction(t_player *player, char spawn_dir);
 
 void cast_rays(t_game *game, int x);
 void draw_background(t_game *game);
+void setup_textures(t_game *game);
 #endif

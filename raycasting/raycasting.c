@@ -26,17 +26,37 @@ void draw_background(t_game *game)
         x++;
     }
 }
-void draw_vertical_line(t_game *game, int x, int start, int end, int color)
+
+void draw_wall_line_text(t_game *game, int x, int start, int end, int texture)
 {
     int y;
     char *pixel;
-    
+    t_texture text;
+    char *addresse_color;
+    int texture_y;
+    int line_height;
+    // int color;
+
+    (void)end;
     y = start;
+    if (texture == NORTH)
+        text = game->north;
+    else if(texture == EAST)
+        text = game->east;
+    else if (texture == WEST)
+        text = game->west;
+    else
+        text = game->south;
+    line_height = end - start + 1;
     while (y <= end)
     {
-        pixel = game->add + (y * game->line_length + x * (game->bits_per_pixel / 8));
-        *(unsigned int*)pixel = color;
-        y++;
+            texture_y = ((y - start) * text.height) / line_height;
+            if (texture_y >= text.height) 
+                texture_y = text.height - 1;
+            addresse_color =  text.add + (texture_y * text.line_height) + x * (text.bits_per_pexel / 8);
+            pixel = game->add + (y * game->line_length) + x * (game->bits_per_pixel / 8);
+            *(unsigned int*)pixel = *(unsigned int *)addresse_color;
+            y++;
     }
 }
 
@@ -119,7 +139,7 @@ void calculate_wall_dimensions(t_game *game, double ray_dir_x, double ray_dir_y,
     if (side == 0)
         perp_wall_dist = (map_x - game->player.x + (1 - step_x) / 2) / ray_dir_x;
     else
-        perp_wall_dist = (map_y - game->player.y + (1 - step_y) / 2) / ray_dir_y;//ray dir i s equalt to cos or sin alpha
+        perp_wall_dist = (map_y - game->player.y + (1 - step_y) / 2) / ray_dir_y;//ray dir i s equalt to cos or sin alpha prep wall dest= distance traveled along the ray
     *line_height = (int)(game->win_heigth / perp_wall_dist);//dividing by prepwall gives the view when we are near and when we ar
     *draw_start = -(*line_height) / 2 + game->win_heigth / 2;
     if (*draw_start < 0)
@@ -129,16 +149,16 @@ void calculate_wall_dimensions(t_game *game, double ray_dir_x, double ray_dir_y,
         *draw_end = game->win_heigth - 1;
 }
 
-void draw_wall_line(t_game *game,int x, int side, int draw_start, int draw_end)
-{
-    int color;
+// void draw_wall_line(t_game *game,int x, int side, int draw_start, int draw_end)
+// {
+//     int color;
 
-    if (side == 1)
-        color = 0xFF0000;
-    else
-        color = 0x00FF00;
-    draw_vertical_line(game, x, draw_start, draw_end, color);
-}
+//     if (side == 1)
+//         color = 0xFF0000;
+//     else
+//         color = 0x00FF00;
+//     draw_vertical_line(game, x, draw_start, draw_end, color);
+// }
 int get_wall_direction(double ray_dir_x, double ray_dir_y, int side)
 {
     if (side == 0)
@@ -159,14 +179,20 @@ int get_wall_direction(double ray_dir_x, double ray_dir_y, int side)
 
 void setup_textures(t_game *game)
 {
-    game->east.img = mlx_xpm_file_to_image(game->mlx, "../textures/east_wall.xpm", &game->east.width, &game->east.height);
+    game->east.img = mlx_xpm_file_to_image(game->mlx, "textures/east_wall.xpm", &game->east.width, &game->east.height);
+    if (!game->east.img)
+        return(printf("tnakt"), exit (3));
     game->east.add = mlx_get_data_addr(game->east.img, &game->east.bits_per_pexel, &game->east.line_height, &game->east.endian);
-    game->north.img = mlx_xpm_file_to_image(game->mlx, "../textures/north_wall.xpm", &game->north.width, &game->north.height);
+    game->north.img = mlx_xpm_file_to_image(game->mlx, "textures/north_wall.xpm", &game->north.width, &game->north.height);
     game->north.add = mlx_get_data_addr(game->north.img, &game->north.bits_per_pexel, &game->north.line_height, &game->north.endian);
-    game->south.img = mlx_xpm_file_to_image(game->mlx, "../textures/south_wall.xpm", &game->south.width, &game->south.height);
+    game->south.img = mlx_xpm_file_to_image(game->mlx, "textures/south_wall.xpm", &game->south.width, &game->south.height);
     game->south.add = mlx_get_data_addr(game->south.img, &game->south.bits_per_pexel, &game->south.line_height, &game->south.endian);
-    game->west.img = mlx_xpm_file_to_image(game->mlx, "../textures/west_wall.xpm", &game->west.width, &game->west.height);
+    game->west.img = mlx_xpm_file_to_image(game->mlx, "textures/west_wall.xpm", &game->west.width, &game->west.height);
     game->west.add = mlx_get_data_addr(game->west.img, &game->west.bits_per_pexel, &game->west.line_height, &game->west.endian);
+    printf ("north : %d----\n", game->north.line_height);
+    printf ("south : %d----\n", game->south.line_height);
+    printf ("east : %d----\n", game->east.line_height);
+    printf ("west : %d----\n", game->west.line_height);
 
 }
 
@@ -187,5 +213,5 @@ void cast_rays(t_game *game, int x)
     calculate_wall_dimensions(game, ray_dir_x, ray_dir_y, map_x, map_y, side, 
                              &line_height, &draw_start, &draw_end);
     text = get_wall_direction(ray_dir_x, ray_dir_y, side);
-    draw_wall_line(game, x, side, draw_start, draw_end);
+    draw_wall_line_text(game, x, draw_start, draw_end,text);
 }
