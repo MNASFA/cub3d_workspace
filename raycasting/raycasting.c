@@ -93,10 +93,6 @@ void perform_dda(t_game *game, double ray_dir_x, double ray_dir_y, int *map_x, i
     hit = 0;
     *map_x = (int)game->player.x;//will stockes the cordinate of the wall
     *map_y = (int)game->player.y;
-    // if (fabs(ray_dir_x - 1) <= 0.01)
-    //     ray_dir_x += 1;
-    // if (fabs(ray_dir_y - 1) <= 0.01)
-    //     ray_dir_y += 1;
     delta_dist_x = fabs(1 / ray_dir_x);//bax ray yzid b1 step x7al khasso fdistance
     delta_dist_y = fabs(1 / ray_dir_y);
     if (ray_dir_x < 0)
@@ -150,9 +146,9 @@ void calculate_wall_dimensions(t_game *game, double ray_dir_x, double ray_dir_y,
     step_x = (ray_dir_x < 0) ? -1 : 1;
     step_y = (ray_dir_y < 0) ? -1 : 1;
     if (side == 0)
-        perp_wall_dist = (map_x - game->player.x + (1 - step_x) / 2) / ray_dir_x;
+        perp_wall_dist = (map_x - game->player.x + (1 - step_x) / 2) / ray_dir_x  - 0.11;
     else
-        perp_wall_dist = (map_y - game->player.y + (1 - step_y) / 2) / ray_dir_y;//ray dir i s equalt to cos or sin alpha prep wall dest= distance traveled along the ray
+        perp_wall_dist = (map_y - game->player.y + (1 - step_y) / 2) / ray_dir_y - 0.11;//ray dir i s equalt to cos or sin alpha prep wall dest= distance traveled along the ray
     *line_height = (int)(game->win_heigth / perp_wall_dist);//dividing by prepwall gives the view when we are near and when we ar
     *draw_start = -(*line_height) / 2 + game->win_heigth / 2;
     if (*draw_start < 0)
@@ -215,10 +211,6 @@ void setup_textures(t_game *game)
     game->south.add = mlx_get_data_addr(game->south.img, &game->south.bits_per_pexel, &game->south.line_height, &game->south.endian);
     game->west.img = mlx_xpm_file_to_image(game->mlx, "textures/west_wall.xpm", &game->west.width, &game->west.height);
     game->west.add = mlx_get_data_addr(game->west.img, &game->west.bits_per_pexel, &game->west.line_height, &game->west.endian);
-    printf ("north : %d----\n", game->north.line_height);
-    printf ("south : %d----\n", game->south.line_height);
-    printf ("east : %d----\n", game->east.line_height);
-    printf ("west : %d----\n", game->west.line_height);
 
 }
 
