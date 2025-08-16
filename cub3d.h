@@ -6,7 +6,7 @@
 /*   By: aboukhmi <aboukhmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:08:39 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/16 13:06:49 by aboukhmi         ###   ########.fr       */
+/*   Updated: 2025/08/16 13:46:24 by aboukhmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@
 # define KEY_ESC 53
 
 /* Movement speed */
-# define MOVE_SPEED 0.25
-# define ROT_SPEED 0.25
+# define MOVE_SPEED 0.5
+# define ROT_SPEED 0.5
 
 //////////////////////////////////   END COLORS   ///////////////////////////
 
