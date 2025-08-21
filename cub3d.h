@@ -6,7 +6,7 @@
 /*   By: aboukhmi <aboukhmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:08:39 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/16 13:46:24 by aboukhmi         ###   ########.fr       */
+/*   Updated: 2025/08/20 22:29:49 by aboukhmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,35 @@
 # define KEY_LEFT 123
 # define KEY_RIGHT 124
 # define KEY_ESC 53
+# define KEY_SPACE 49
 
 /* Movement speed */
 # define MOVE_SPEED 0.5
-# define ROT_SPEED 0.5
+# define ROT_SPEED 0.15
 
 //////////////////////////////////   END COLORS   ///////////////////////////
+
+typedef struct s_weapon
+{
+	void	*img;
+	char	*add;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		width;
+	int		height;
+}	t_weapon;
+
+typedef struct s_sun
+{
+	void	*img;
+	char	*add;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		width;
+	int		height;
+}	t_sun;
 
 typedef struct  s_texture
 {
@@ -115,6 +138,12 @@ typedef	struct s_game
 	int ea_parsed;
 	int f_parsed;
 	int c_parsed;
+	t_weapon	weapon[15];
+	t_sun		sun[46];
+	int sun_frame;
+	int space_pressed;
+	int weapon_frame;
+	int next_frame;
 }	t_game;
 
 typedef struct s_line
@@ -174,11 +203,16 @@ int		is_player(char c);
 ///////////////// Rendring files ///////////////////////
 
 int		init_mlx(t_game *game);
-void	render_map(t_game *game);
+int	render_map(t_game *game);
 int		handle_keypress(int keycode, t_game *game);
 void	init_player_direction(t_player *player, char spawn_dir);
 
 void cast_rays(t_game *game, int x);
 void draw_background(t_game *game);
 void setup_textures(t_game *game);
+void setup_weapon(t_game *game);
+void setup_sun(t_game *game);
+void draw_sun(t_game *game);
+void handle_weapon(t_game *game, int frame);
+void handle_weapon_animation(t_game *game);
 #endif

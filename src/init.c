@@ -31,6 +31,10 @@ void init_game(t_game *game)
     game->we_parsed = 0;
     game->f_parsed = 0;
 	game->c_parsed = 0;
+    game->space_pressed = 0;
+    game->weapon_frame = 0;
+    game->next_frame = 0;
+    game->sun_frame = 0;
 }
 
 void init_player_direction(t_player *player, char spawn_dir)
