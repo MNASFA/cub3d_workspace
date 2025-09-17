@@ -6,7 +6,7 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:56:23 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/09/17 10:59:11 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/09/17 11:54:27 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void render_game_with_minimap(t_game *game)
 {
     render_map(game);
     render_minimap_corner(game);
-    // Display everything
     mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 }
 

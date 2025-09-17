@@ -6,7 +6,7 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:08:39 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/09/17 11:00:11 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/09/17 11:03:46 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,6 +224,8 @@ int	render_map(t_game *game);
 int		handle_keypress(int keycode, t_game *game);
 void	init_player_direction(t_player *player, char spawn_dir);
 int handle_mouse_move(int x, int y, t_game *game);
+void render_minimap_corner(t_game *game);
+void render_game_with_minimap(t_game *game);
 
 void cast_rays(t_game *game, int x);
 void draw_background(t_game *game);

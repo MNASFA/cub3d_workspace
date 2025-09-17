@@ -6,11 +6,7 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 10:49:06 by hmnasfa           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/08/14 13:42:28 by hmnasfa          ###   ########.fr       */
-=======
-/*   Updated: 2025/08/20 23:00:23 by aboukhmi         ###   ########.fr       */
->>>>>>> anouar
+/*   Updated: 2025/09/17 11:04:29 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +76,6 @@ int render_map(t_game *game)
     }
 	handle_weapon_animation(game);
     // draw_direction_line(game);
-<<<<<<< HEAD
     // mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
-=======
-    mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 	return (0);
->>>>>>> anouar
 }

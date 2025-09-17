@@ -12,6 +12,7 @@ MLX = $(MLX_DIR)/libmlx.a
 SRCS = src/main.c src/parsing/parse_file.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c src/init.c \
 		src/parsing/parse_colors.c src/parsing/parse_map.c src/parsing/parse_textures.c src/parsing/read_all_lines.c src/parsing/validation.c \
 		spliiit.c utils.c \
+		src/rendring/render_minimap.c \
 		src/rendring/init_mlx.c src/rendring/render_map.c src/rendring/hooks.c raycasting/raycasting.c raycasting/weapon.c  raycasting/sun.c
 OBJS = $(SRCS:.c=.o)
 OBJS_BONUS = $(SRCS_BONUS:.c=.o)
