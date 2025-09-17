@@ -14,16 +14,16 @@ void init_game(t_game *game)
     game->player.y = 0;
 
     game->north.img = NULL;
-    game->north.path = NULL;
+    game->north.path = ft_strdup("textures/north_wall.xpm");
 
     game->south.img = NULL;
-    game->south.path = NULL;
+    game->south.path = ft_strdup("textures/south_wall.xpm");
 
     game->west.img = NULL;
-    game->west.path = NULL;
+    game->west.path = ft_strdup("textures/west_wall.xpm");
 
     game->east.img = NULL;
-    game->east.path = NULL;
+    game->east.path =ft_strdup("textures/east_wall.xpm");
     // parsing flags
     game->no_parsed = 0;
     game->so_parsed = 0;
@@ -31,6 +31,10 @@ void init_game(t_game *game)
     game->we_parsed = 0;
     game->f_parsed = 0;
 	game->c_parsed = 0;
+    game->space_pressed = 0;
+    game->weapon_frame = 0;
+    game->next_frame = 0;
+    game->sun_frame = 0;
 }
 
 void init_player_direction(t_player *player, char spawn_dir)
