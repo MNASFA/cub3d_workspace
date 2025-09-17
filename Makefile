@@ -14,7 +14,7 @@ SRCS = src/main.c src/parsing/parse_file.c get_next_line/get_next_line.c get_nex
 		src/rendring/init_mlx.c src/rendring/render_map.c src/rendring/hooks.c raycasting/raycasting.c raycasting/weapon.c  raycasting/sun.c
 OBJS = $(SRCS:.c=.o)
 
-LINK_FLAGS = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+LINK_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm 
 
 all: $(NAME)
 
