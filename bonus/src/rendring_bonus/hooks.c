@@ -6,12 +6,11 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 12:56:16 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/21 16:10:21 by aboukhmi         ###   ########.fr       */
-/*   Updated: 2025/08/14 21:28:14 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/08/14 21:38:17 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cub3d.h"
+#include "../../cub3d_bonus.h"
 
 void exit_game(t_game *game)
 {
@@ -21,41 +20,20 @@ void exit_game(t_game *game)
     exit(0);
 }
 
-int is_walkable(t_game *game, double new_x, double new_y)
+static int is_walkable(t_game *game, double new_x, double new_y)
 {
-    int map_x = (int)new_x;
-    int map_y = (int)new_y;
-    double buffer = 0.2; // Adjusted buffer for precision
+	int map_x;
+	int map_y;
 
-    // Check if the new position is valid
-    if (map_x < 0 || map_x >= game->map.width || map_y < 0 || map_y >= game->map.height)
-        return (0);
-    if (game->map.grid[map_y][map_x] == '1')
-        return (0);
-
-    // Check positions around the player with buffer
-    int check_positions[8][2] = {
-        {(int)(new_x + buffer), (int)new_y},      // Right
-        {(int)(new_x - buffer), (int)new_y},      // Left  
-        {(int)new_x, (int)(new_y + buffer)},      // Down
-        {(int)new_x, (int)(new_y - buffer)},      // Up
-        {(int)(new_x + buffer), (int)(new_y + buffer)}, // Bottom-right diagonal
-        {(int)(new_x - buffer), (int)(new_y + buffer)}, // Bottom-left diagonal
-        {(int)(new_x + buffer), (int)(new_y - buffer)}, // Top-right diagonal
-        {(int)(new_x - buffer), (int)(new_y - buffer)}  // Top-left diagonal
-    };
-
-    for (int i = 0; i < 8; i++) {
-        int check_x = check_positions[i][0];
-        int check_y = check_positions[i][1];
-
-        if (check_x < 0 || check_x >= game->map.width || check_y < 0 || check_y >= game->map.height)
-            return (0);
-        if (game->map.grid[check_y][check_x] == '1')
-            return (0);
-    }
-
-    return (1);
+	map_x = (int)new_x;
+	map_y = (int)new_y;
+	if (map_x < 0 || map_x >= game->map.width)
+		return (0);
+	if (map_y < 0 || map_y >= game->map.height)
+		return (0);
+	if (game->map.grid[map_y][map_x] == '1')
+		return (0);
+	return (1);
 }
 
 void rotate_player(t_player *player, double angle)
@@ -103,10 +81,7 @@ int handle_keypress(int keycode, t_game *game)
         rotate_player(&game->player, ROT_SPEED);
     else if (keycode == KEY_ESC)
         exit_game(game);
-    if (keycode == KEY_SPACE)
-    {
-        game->space_pressed = 1;
-    }
+
     // Update position if movement is valid
     if (is_walkable(game, new_x, new_y))
     {
@@ -117,31 +92,34 @@ int handle_keypress(int keycode, t_game *game)
     return (0);
 }
 
-// int handle_mouse_move(int x, int y, t_game *game)
-// {
-//     static int last_x = -1;
-//     static int last_y = -1;
+int handle_mouse_move(int x, int y, t_game *game)
+{
+    static int  last_x;
+    static int  last_y;
+    int         delta_x;
+    int         delta_y;
+    double rotation_angle;
     
-//     if (last_x == -1 && last_y == -1)
-//     {
-//         last_x = x;
-//         last_y = y;
-//         return (0);
-//     }
-//     int delta_x = x - last_x;
-//     int delta_y = y - last_y;
-//     if (delta_x != 0 || delta_y != 0)
-//     {
-//         if (delta_x != 0)
-//         {
-//             double rotation_angle = delta_x * SENSITIVITY;
-//             rotate_player(&game->player, rotation_angle);
-//         }
-//         render_game_with_minimap(game);
-//     }
-    
-//     last_x = x;
-//     last_y = y;
-    
-//     return (0);
-// }
+    last_x = -1;
+    last_y = -1;
+    if (last_x == -1 && last_y == -1)
+    {
+        last_x = x;
+        last_y = y;
+        return (0);
+    }
+    delta_x = x - last_x;
+    delta_y = y - last_y;
+    if (delta_x != 0 || delta_y != 0)
+    {
+        if (delta_x != 0)
+        {
+            double rotation_angle = delta_x * SENSITIVITY;
+            rotate_player(&game->player, rotation_angle);
+        }
+        render_game_with_minimap(game);
+    }
+    last_x = x;
+    last_y = y;
+    return (0);
+}

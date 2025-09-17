@@ -6,11 +6,11 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 10:33:45 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/13 14:52:07 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/08/14 21:38:26 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cub3d.h"
+#include "../../cub3d_bonus.h"
 
 int init_mlx(t_game *game)
 {

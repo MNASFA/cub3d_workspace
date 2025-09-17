@@ -5,54 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/15 16:46:05 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/15 21:28:13 by hmnasfa          ###   ########.fr       */
+/*   Created: 2025/08/14 21:38:56 by hmnasfa           #+#    #+#             */
+/*   Updated: 2025/08/14 21:39:01 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cub3d.h"
+#include "../../cub3d_bonus.h"
 
-// static int is_valid_integer(char *str)
-// {
-//     int i = 0;
-    
-
-//     while (str[i] == ' ' || str[i] == '\t')
-//         i++;
-    
-//     if (str[i] < '0' || str[i] > '9')
-//         return (0);
-
-//     while (str[i] && str[i] != ' ' && str[i] != '\t')
-//     {
-//         if (str[i] < '0' || str[i] > '9')
-//             return (0);
-//         i++;
-//     }
-//     while (str[i] == ' ' || str[i] == '\t')
-//         i++;
-//     return (1);
-// }
-
-static int has_consecutive_commas(char *str)
-{
-    int i = 0;
-    
-    while (str[i])
-    {
-        if (str[i] == ',' && str[i + 1] == ',')
-            return (1);
-        i++;
-    }
-    return (0);
-}
+// Convert a string to int and check range
 
 static int parse_rgb(char *str, int *value)
 {
     int num;
 
-    // if (!is_valid_integer(str))
-    //     return (0);
     num = ft_atoi(str);
     if (num < 0 || num > 255)
         return (0);
@@ -60,13 +25,13 @@ static int parse_rgb(char *str, int *value)
     return (1); 
 }
 
+// extract rgb values from "255,255,255"
+
 static int extract_rgb(char *str, int *r, int *g, int *b)
 {
     char    **parts;
     int     count;
 
-    if (has_consecutive_commas(str))
-        return (0);
     parts = ft_split(str, ',');
     if (!parts)
         return (0);
@@ -84,6 +49,7 @@ static int extract_rgb(char *str, int *r, int *g, int *b)
     return (1);
 }
 
+// Parse a color line and save it on t_game
 
 int parse_color_line(char *line, t_game *game)
 {
@@ -102,10 +68,10 @@ int parse_color_line(char *line, t_game *game)
         trimmed = ft_strchr(line, ' ');
         if (!trimmed)
             return (print_error("Missing RGB values"), 0);
-        trimmed++;
+        trimmed++; // Skip the space
         if (!extract_rgb(trimmed, &r, &g, &b))
             return (print_error("Invalid floor color"), 0);
-        game->floor_color = (r << 16) | (g << 8) | b;
+        game->floor_color = (r << 16) | (g << 8) | b; // Need to understand more
         game->f_parsed = 1;
     }
     else if (*line == 'C')

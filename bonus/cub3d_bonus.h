@@ -6,8 +6,7 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:08:39 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/20 22:29:49 by aboukhmi         ###   ########.fr       */
-/*   Updated: 2025/08/16 11:25:37 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/08/14 19:01:21 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,54 +33,27 @@
 # define GREEN		0x00FF00
 # define GRAY		0x333333
 
-# define GRAY_OPACITY       0x555555
-# define WHITE_OPACITY      0xCCCCCC
-# define RED_OPACITY        0xAA0000 
-
 # define WIN_TITLE	"cub3D"
 # define TILE_SIZE 32
 # define MINIMAP_SIZE 130
 # define MINIMAP_SCALE 0.3 
 # define MINIMAP_MARGIN 5
 
-# define KEY_W       119   // 'w'
-# define KEY_A       97    // 'a'
-# define KEY_S       115   // 's'
-# define KEY_D       100   // 'd'
-# define KEY_LEFT    65361 // Left arrow
-# define KEY_RIGHT   65363 // Right arrow
-# define KEY_ESC     65307 // Escape
-# define KEY_SPACE   32    // Space
-
+# define KEY_W 13
+# define KEY_A 0
+# define KEY_S 1
+# define KEY_D 2
+# define KEY_LEFT 123
+# define KEY_RIGHT 124
+# define KEY_ESC 53
 
 /* Movement speed */
-# define MOVE_SPEED 0.5
+# define MOVE_SPEED 0.15
+# define MOUSE_SPEED 0.05
 # define ROT_SPEED 0.15
 # define SENSITIVITY 0.002
 
 //////////////////////////////////   END COLORS   ///////////////////////////
-
-typedef struct s_weapon
-{
-	void	*img;
-	char	*add;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int		width;
-	int		height;
-}	t_weapon;
-
-typedef struct s_sun
-{
-	void	*img;
-	char	*add;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int		width;
-	int		height;
-}	t_sun;
 
 typedef struct  s_texture
 {
@@ -155,12 +127,6 @@ typedef	struct s_game
 	int ea_parsed;
 	int f_parsed;
 	int c_parsed;
-	t_weapon	weapon[15];
-	t_sun		sun[46];
-	int sun_frame;
-	int space_pressed;
-	int weapon_frame;
-	int next_frame;
 }	t_game;
 
 typedef struct s_line
@@ -222,18 +188,9 @@ int		is_player(char c);
 ///////////////// Rendring files ///////////////////////
 
 int		init_mlx(t_game *game);
-int	render_map(t_game *game);
+void	render_map(t_game *game);
 int		handle_keypress(int keycode, t_game *game);
 void	init_player_direction(t_player *player, char spawn_dir);
-
-void cast_rays(t_game *game, int x);
-void draw_background(t_game *game);
-void setup_textures(t_game *game);
-void setup_weapon(t_game *game);
-void setup_sun(t_game *game);
-void draw_sun(t_game *game);
-void handle_weapon(t_game *game, int frame);
-void handle_weapon_animation(t_game *game);
 int		handle_mouse_move(int x, int y, t_game *game);
 void	render_minimap_corner(t_game *game);
 void	render_game_with_minimap(t_game *game);

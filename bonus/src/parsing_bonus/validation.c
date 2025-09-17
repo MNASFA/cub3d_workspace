@@ -1,4 +1,16 @@
-#include "../../cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validation.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/14 21:39:51 by hmnasfa           #+#    #+#             */
+/*   Updated: 2025/08/14 21:42:20 by hmnasfa          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../cub3d_bonus.h"
 
 int is_player(char c)
 {
@@ -27,34 +39,6 @@ static void set_player_orientation(t_game *game, char dir)
         game->player.dir_x = -1;
         game->player.dir_y = 0;
     }
-}
-
-int is_valid_position(char **grid, int height, int x, int y)
-{
-    if (y > 0)
-    {
-        if (x >= ft_strlen(grid[y - 1]) || grid[y - 1][x] == ' ')
-            return (0); 
-    }
-    if (y < height - 1)
-    {
-        if (x >= ft_strlen(grid[y + 1]) || grid[y + 1][x] == ' ')
-            return (0);
-    }
-    if (x > 0)
-    {
-        if (grid[y][x - 1] == ' ')
-            return (0);
-    }
-    int current_len = ft_strlen(grid[y]);
-    if (grid[y][current_len - 1] == '\n')
-        current_len--;
-    if (x < current_len - 1)
-    {
-        if (grid[y][x + 1] == ' ')
-            return (0);
-    }
-    return (1);
 }
 
 int validate_map(t_game *game)
@@ -87,8 +71,6 @@ int validate_map(t_game *game)
                     row_len--;
                 if (y == 0 || y == height - 1 || x == 0 || x == row_len - 1)
                     return (print_error("Map not enclosed by walls"), 0);
-                if (!is_valid_position(grid, height, x, y))
-                    return(print_error("Map not enclosed prperly !"), 0);
 
                 if ((y > 0 && x < ft_strlen(grid[y - 1]) && grid[y - 1][x] == ' ') ||
                     (y < height - 1 && x < ft_strlen(grid[y + 1]) && grid[y + 1][x] == ' ') ||

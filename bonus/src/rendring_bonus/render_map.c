@@ -6,12 +6,11 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 10:49:06 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/20 23:00:23 by aboukhmi         ###   ########.fr       */
-/*   Updated: 2025/08/14 13:42:28 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/08/14 21:38:31 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cub3d.h"
+#include "../../cub3d_bonus.h"
 
 void	draw_square(t_game *game, int x, int y, int color)
 {
@@ -60,7 +59,7 @@ void draw_direction_line(t_game *game)
     }
 }
 
-int render_map(t_game *game)
+void render_map(t_game *game)
 {
 	int x;
 	int y;
@@ -68,14 +67,16 @@ int render_map(t_game *game)
     ft_memset(game->add, 0, game->win_width * game->win_heigth * (game->bits_per_pixel / 8));
 	y = 0;
 	draw_background(game);
-	draw_sun(game);
-	x = 0;
-    while(x < game->win_width)
+    while (y < game->map.height)
     {
-        cast_rays(game, x);
-		x++;
+		x = 0;
+        while(x < game->win_width)
+        {
+            cast_rays(game, x);
+			x++;
+        }
+		y++;
     }
-	handle_weapon_animation(game);
     // draw_direction_line(game);
     // mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 }
