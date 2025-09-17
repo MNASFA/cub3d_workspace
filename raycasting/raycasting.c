@@ -180,12 +180,12 @@ void cast_rays(t_game *game, int x)
     int line_height;
     int draw_start;
     int draw_end;
-    int text;
+    // int text;
 
     calculate_ray_direction(game, x, &ray_dir_x, &ray_dir_y);
     perform_dda(game, ray_dir_x, ray_dir_y, &map_x, &map_y, &side);
     calculate_wall_dimensions(game, ray_dir_x, ray_dir_y, map_x, map_y, side, 
                              &line_height, &draw_start, &draw_end);
-    text = get_wall_direction(ray_dir_x, ray_dir_y, side);
+    // text = get_wall_direction(ray_dir_x, ray_dir_y, side);
     draw_wall_line(game, x, side, draw_start, draw_end);
 }

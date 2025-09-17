@@ -43,13 +43,14 @@
 # define MINIMAP_SCALE 0.3 
 # define MINIMAP_MARGIN 5
 
-# define KEY_W 13
-# define KEY_A 0
-# define KEY_S 1
-# define KEY_D 2
-# define KEY_LEFT 123
-# define KEY_RIGHT 124
-# define KEY_ESC 53
+# define KEY_W       119   // 'w'
+# define KEY_A       97    // 'a'
+# define KEY_S       115   // 's'
+# define KEY_D       100   // 'd'
+# define KEY_LEFT    65361 // Left arrow
+# define KEY_RIGHT   65363 // Right arrow
+# define KEY_ESC     65307 // Escape
+# define KEY_SPACE   32    // Space
 
 /* Movement speed */
 # define MOVE_SPEED 0.15

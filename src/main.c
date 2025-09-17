@@ -53,9 +53,9 @@ int main(int ac, char **av)
     init_mlx(&game);
     render_game_with_minimap(&game);
     mlx_hook(game.win, 2, 1L<<0, handle_keypress, &game);
-    mlx_hook(game.win, 6, 1L<<0, handle_mouse_move, &game);
+    // mlx_hook(game.win, 6, 1L<<0, handle_mouse_move, &game);
     // mlx_mouse_hide();
-    mlx_mouse_move(game.win, game.win_width/2, game.win_heigth/2);
+    mlx_mouse_move(game.mlx,game.win,(int)game.win_width/2, (int)game.win_heigth/2);
     mlx_loop(game.mlx);
     return (0);
 }
