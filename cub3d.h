@@ -6,11 +6,7 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:08:39 by hmnasfa           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/08/16 11:25:37 by hmnasfa          ###   ########.fr       */
-=======
-/*   Updated: 2025/08/20 22:29:49 by aboukhmi         ###   ########.fr       */
->>>>>>> anouar
+/*   Updated: 2025/09/17 11:00:11 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,13 +223,7 @@ int		init_mlx(t_game *game);
 int	render_map(t_game *game);
 int		handle_keypress(int keycode, t_game *game);
 void	init_player_direction(t_player *player, char spawn_dir);
-<<<<<<< HEAD
-int		handle_mouse_move(int x, int y, t_game *game);
-void	render_minimap_corner(t_game *game);
-void	render_game_with_minimap(t_game *game);
-void	cast_rays(t_game *game, int x);
-void	draw_background(t_game *game);
-=======
+int handle_mouse_move(int x, int y, t_game *game);
 
 void cast_rays(t_game *game, int x);
 void draw_background(t_game *game);
@@ -243,5 +233,4 @@ void setup_sun(t_game *game);
 void draw_sun(t_game *game);
 void handle_weapon(t_game *game, int frame);
 void handle_weapon_animation(t_game *game);
->>>>>>> anouar
 #endif

@@ -6,11 +6,7 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:56:23 by hmnasfa           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/08/14 14:41:01 by hmnasfa          ###   ########.fr       */
-=======
-/*   Updated: 2025/08/20 22:25:24 by aboukhmi         ###   ########.fr       */
->>>>>>> anouar
+/*   Updated: 2025/09/17 10:59:11 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +51,7 @@ int main(int ac, char **av)
     }
     init_player_direction(&(game.player), game.dir);
     init_mlx(&game);
-<<<<<<< HEAD
     render_game_with_minimap(&game);
-=======
-    setup_textures(&game);
-    setup_weapon(&game);
-    setup_sun(&game);
-    mlx_loop_hook( game.mlx,render_map, &game);
->>>>>>> anouar
     mlx_hook(game.win, 2, 1L<<0, handle_keypress, &game);
     mlx_hook(game.win, 6, 1L<<0, handle_mouse_move, &game);
     // mlx_mouse_hide();
