@@ -6,7 +6,7 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 12:56:16 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/09/18 09:32:44 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/09/18 13:44:16 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,76 +72,121 @@ void rotate_player(t_player *player, double angle)
     player->plane_y = old_plane_x * sin(angle) + player->plane_y * cos(angle);
 }
 
-int handle_keypress(int keycode, t_game *game)
+void process_all_inputs(t_game *game)
 {
-    double new_x = game->player.x;
-    double new_y = game->player.y;
+    double new_x;
+    double new_y;
+    int moved;
 
-    if (keycode == KEY_W)
+    new_x = game->player.x;
+    new_y = game->player.y;
+    moved = 0;
+    if (game->key_w_pressed)
     {
         new_x += game->player.dir_x * MOVE_SPEED;
         new_y += game->player.dir_y * MOVE_SPEED;
+        moved = 1;
     }
-    else if (keycode == KEY_S) 
+    if (game->key_s_pressed) 
     {
         new_x -= game->player.dir_x * MOVE_SPEED;
         new_y -= game->player.dir_y * MOVE_SPEED;
+        moved = 1;
     }
-    else if (keycode == KEY_A) 
+    if (game->key_a_pressed) 
     {
         new_x += game->player.dir_y * MOVE_SPEED;  
         new_y -= game->player.dir_x * MOVE_SPEED;
+        moved = 1;
     }
-    else if (keycode == KEY_D) 
+    if (game->key_d_pressed) 
     {
         new_x -= game->player.dir_y * MOVE_SPEED;
         new_y += game->player.dir_x * MOVE_SPEED;
+        moved = 1;
     }
-    if (keycode == KEY_LEFT)
-        rotate_player(&game->player, -ROT_SPEED);
-    if (keycode == KEY_RIGHT)
-        rotate_player(&game->player, ROT_SPEED);
-    else if (keycode == KEY_ESC)
-        exit_game(game);
-    if (keycode == KEY_SPACE)
+    if (game->key_left_pressed)
     {
-        game->space_pressed = 1;
+        rotate_player(&game->player, -ROT_SPEED);
     }
-    // Update position if movement is valid
-    if (is_walkable(game, new_x, new_y))
+    if (game->key_right_pressed)
+    {
+        rotate_player(&game->player, ROT_SPEED);
+    }
+    if (moved && is_walkable(game, new_x, new_y))
     {
         game->player.x = new_x;
         game->player.y = new_y;
-        render_game_with_minimap(game);
     }
+}
+
+int handle_keypress(int keycode, t_game *game)
+{
+    if (keycode == KEY_W)
+        game->key_w_pressed = 1;
+    if (keycode == KEY_S)
+        game->key_s_pressed = 1;
+    if (keycode == KEY_A)
+        game->key_a_pressed = 1;
+    if (keycode == KEY_D)
+        game->key_d_pressed = 1;
+    if (keycode == KEY_LEFT)
+        game->key_left_pressed = 1;
+    if (keycode == KEY_RIGHT)
+        game->key_right_pressed = 1;
+    if (keycode == KEY_ESC)
+        exit_game(game);
+    if (keycode == KEY_SPACE)
+        game->space_pressed = 1;
     return (0);
 }
 
-// int handle_mouse_move(int x, int y, t_game *game)
-// {
-//     static int last_x = -1;
-//     static int last_y = -1;
+int handle_keyrelease(int keycode, t_game *game)
+{
+    if (keycode == KEY_W)
+        game->key_w_pressed = 0;
+    if (keycode == KEY_S)
+        game->key_s_pressed = 0;
+    if (keycode == KEY_A)
+        game->key_a_pressed = 0;
+    if (keycode == KEY_D)
+        game->key_d_pressed = 0;
+    if (keycode == KEY_LEFT)
+        game->key_left_pressed = 0;
+    if (keycode == KEY_RIGHT)
+        game->key_right_pressed = 0;
+    return (0);
+}
+
+int game_loop(t_game *game)
+{
+    process_all_inputs(game);
+    render_game_with_minimap(game);   
+    return (0);
+}
+
+int handle_mouse_move(int x, int y, t_game *game)
+{
+    static int  last_x;
+    static int  center_x;
+    double      rotation_angle;
+    int         delta_x;
+    (void) y;
     
-//     if (last_x == -1 && last_y == -1)
-//     {
-//         last_x = x;
-//         last_y = y;
-//         return (0);
-//     }
-//     int delta_x = x - last_x;
-//     int delta_y = y - last_y;
-//     if (delta_x != 0 || delta_y != 0)
-//     {
-//         if (delta_x != 0)
-//         {
-//             double rotation_angle = delta_x * SENSITIVITY;
-//             rotate_player(&game->player, rotation_angle);
-//         }
-//         render_game_with_minimap(game);
-//     }
-    
-//     last_x = x;
-//     last_y = y;
-    
-//     return (0);
-// }
+    if (last_x == 0)
+    {
+        center_x = game->win_width / 2;
+        last_x = center_x;
+        return (0);
+    }
+    delta_x = x - center_x;
+    if (abs(delta_x) > 2)
+    {
+        rotation_angle = delta_x * SENSITIVITY;
+        rotate_player(&game->player, rotation_angle);
+        mlx_mouse_move(game->mlx, game->win, center_x, game->win_heigth / 2);
+    }
+    last_x = x;
+    return (0);
+}
+

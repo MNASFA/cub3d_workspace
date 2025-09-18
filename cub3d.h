@@ -6,7 +6,7 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:08:39 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/09/18 09:32:18 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/09/18 15:09:03 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,19 @@
 # define MINIMAP_SCALE 0.3 
 # define MINIMAP_MARGIN 5
 
-# define KEY_W       119   // 'w'
-# define KEY_A       97    // 'a'
-# define KEY_S       115   // 's'
-# define KEY_D       100   // 'd'
-# define KEY_LEFT    65361 // Left arrow
-# define KEY_RIGHT   65363 // Right arrow
-# define KEY_ESC     65307 // Escape
-# define KEY_SPACE   32    // Space
+# define KEY_W       119    
+# define KEY_A       97     
+# define KEY_S       115    
+# define KEY_D       100    
+# define KEY_LEFT    65361
+# define KEY_RIGHT   65363
+# define KEY_ESC     65307
+# define KEY_SPACE   32
 
 
 /* Movement speed */
-# define MOVE_SPEED 0.5
-# define ROT_SPEED 0.15
+# define MOVE_SPEED 0.05
+# define ROT_SPEED 0.05
 # define SENSITIVITY 0.002
 
 //////////////////////////////////   END COLORS   ///////////////////////////
@@ -148,6 +148,14 @@ typedef	struct s_game
 	void *minimap_img;
 	char *minimap_addr;
 
+	// flags for keys pressed
+	int key_w_pressed;
+    int key_s_pressed;
+    int key_a_pressed;
+    int key_d_pressed;
+    int key_left_pressed;
+    int key_right_pressed;
+
 	// flags
 	int no_parsed;
 	int so_parsed;
@@ -180,6 +188,7 @@ typedef struct s_line
 ///////////////// Init ///////////////////////
 
 void init_game(t_game *game);
+void init_key_states(t_game *game);
 
 ///////////////// Get Next Line ///////////////////////
 
@@ -222,18 +231,20 @@ int		is_player(char c);
 ///////////////// Rendring files ///////////////////////
 
 int		init_mlx(t_game *game);
-int	render_map(t_game *game);
+int		render_map(t_game *game);
 int		handle_keypress(int keycode, t_game *game);
+int		handle_keyrelease(int keycode, t_game *game);
 void	init_player_direction(t_player *player, char spawn_dir);
-
-void cast_rays(t_game *game, int x);
-void draw_background(t_game *game);
-void setup_textures(t_game *game);
-void setup_weapon(t_game *game);
-void setup_sun(t_game *game);
-void draw_sun(t_game *game);
-void handle_weapon(t_game *game, int frame);
-void handle_weapon_animation(t_game *game);
+void	exit_game(t_game *game);
+int		game_loop(t_game *game);
+void	cast_rays(t_game *game, int x);
+void	draw_background(t_game *game);
+void	setup_textures(t_game *game);
+void	setup_weapon(t_game *game);
+void	setup_sun(t_game *game);
+void	draw_sun(t_game *game);
+void	handle_weapon(t_game *game, int frame);
+void	handle_weapon_animation(t_game *game);
 int		handle_mouse_move(int x, int y, t_game *game);
 void	render_minimap_corner(t_game *game);
 void	render_game_with_minimap(t_game *game);
