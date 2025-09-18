@@ -6,9 +6,10 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:08:39 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/09/17 11:03:46 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/09/18 09:32:18 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -43,14 +44,15 @@
 # define MINIMAP_SCALE 0.3 
 # define MINIMAP_MARGIN 5
 
-# define KEY_W 13
-# define KEY_A 0
-# define KEY_S 1
-# define KEY_D 2
-# define KEY_LEFT 123
-# define KEY_RIGHT 124
-# define KEY_ESC 53
-# define KEY_SPACE 49
+# define KEY_W       119   // 'w'
+# define KEY_A       97    // 'a'
+# define KEY_S       115   // 's'
+# define KEY_D       100   // 'd'
+# define KEY_LEFT    65361 // Left arrow
+# define KEY_RIGHT   65363 // Right arrow
+# define KEY_ESC     65307 // Escape
+# define KEY_SPACE   32    // Space
+
 
 /* Movement speed */
 # define MOVE_SPEED 0.5
@@ -223,9 +225,6 @@ int		init_mlx(t_game *game);
 int	render_map(t_game *game);
 int		handle_keypress(int keycode, t_game *game);
 void	init_player_direction(t_player *player, char spawn_dir);
-int handle_mouse_move(int x, int y, t_game *game);
-void render_minimap_corner(t_game *game);
-void render_game_with_minimap(t_game *game);
 
 void cast_rays(t_game *game, int x);
 void draw_background(t_game *game);
@@ -235,4 +234,9 @@ void setup_sun(t_game *game);
 void draw_sun(t_game *game);
 void handle_weapon(t_game *game, int frame);
 void handle_weapon_animation(t_game *game);
+int		handle_mouse_move(int x, int y, t_game *game);
+void	render_minimap_corner(t_game *game);
+void	render_game_with_minimap(t_game *game);
+void	cast_rays(t_game *game, int x);
+void	draw_background(t_game *game);
 #endif

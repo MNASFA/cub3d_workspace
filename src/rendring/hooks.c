@@ -6,9 +6,10 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 12:56:16 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/09/17 11:53:04 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/09/18 09:32:44 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../cub3d.h"
 
@@ -116,32 +117,31 @@ int handle_keypress(int keycode, t_game *game)
     return (0);
 }
 
-int handle_mouse_move(int x, int y, t_game *game)
-{
-    static int last_x = -1;
-    static int last_y = -1;
+// int handle_mouse_move(int x, int y, t_game *game)
+// {
+//     static int last_x = -1;
+//     static int last_y = -1;
     
-    if (last_x == -1 && last_y == -1)
-    {
-        last_x = x;
-        last_y = y;
-        return (0);
-    }
-    int delta_x = x - last_x;
-    int delta_y = y - last_y;
-    if (delta_x != 0 || delta_y != 0)
-    {
-        if (delta_x != 0)
-        {
-            double rotation_angle = delta_x * SENSITIVITY;
-            rotate_player(&game->player, rotation_angle);
-        }
-        render_game_with_minimap(game);
-    }
+//     if (last_x == -1 && last_y == -1)
+//     {
+//         last_x = x;
+//         last_y = y;
+//         return (0);
+//     }
+//     int delta_x = x - last_x;
+//     int delta_y = y - last_y;
+//     if (delta_x != 0 || delta_y != 0)
+//     {
+//         if (delta_x != 0)
+//         {
+//             double rotation_angle = delta_x * SENSITIVITY;
+//             rotate_player(&game->player, rotation_angle);
+//         }
+//         render_game_with_minimap(game);
+//     }
     
-    // Update last position
-    last_x = x;
-    last_y = y;
+//     last_x = x;
+//     last_y = y;
     
-    return (0);
-}
+//     return (0);
+// }
