@@ -201,7 +201,7 @@ int get_wall_direction(double ray_dir_x, double ray_dir_y, int side)
 
 void setup_textures(t_game *game)
 {
-    game->east.img = mlx_xpm_file_to_image(game->mlx, "textures/east_wall.xpm", &game->east.width, &game->east.height);
+    game->east.img = mlx_xpm_file_to_image(game->mlx, "textures/east_wall.xpm", &game-> east.width, &game->east.height);
     if (!game->east.img)
         return(printf("tnakt"), exit (3));
     game->east.add = mlx_get_data_addr(game->east.img, &game->east.bits_per_pexel, &game->east.line_height, &game->east.endian);
