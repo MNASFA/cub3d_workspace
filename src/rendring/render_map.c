@@ -76,6 +76,7 @@ int render_map(t_game *game)
 		x++;
     }
 	handle_weapon_animation(game);
+	// mlx_mouse_move(game->mlx,game->win,(int)game->win_width/2, (int)game->win_heigth/2);
     // draw_direction_line(game);
     // mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 }

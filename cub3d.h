@@ -236,7 +236,7 @@ void handle_weapon(t_game *game, int frame);
 void handle_weapon_animation(t_game *game);
 int		handle_mouse_move(int x, int y, t_game *game);
 void	render_minimap_corner(t_game *game);
-void	render_game_with_minimap(t_game *game);
+int		render_game_with_minimap(t_game *game);
 void	cast_rays(t_game *game, int x);
 void	draw_background(t_game *game);
 #endif
