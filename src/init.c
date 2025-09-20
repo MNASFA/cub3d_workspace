@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/18 15:16:37 by hmnasfa           #+#    #+#             */
+/*   Updated: 2025/09/18 15:16:38 by hmnasfa          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
 void init_game(t_game *game)
@@ -63,4 +75,14 @@ void init_player_direction(t_player *player, char spawn_dir)
         player->plane_x = 0.0;
         player->plane_y = -0.66;
     }
+}
+
+void init_key_states(t_game *game)
+{
+    game->key_w_pressed = 0;
+    game->key_s_pressed = 0;
+    game->key_a_pressed = 0;
+    game->key_d_pressed = 0;
+    game->key_left_pressed = 0;
+    game->key_right_pressed = 0;
 }

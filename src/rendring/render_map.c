@@ -6,10 +6,10 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 10:49:06 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/20 23:00:23 by aboukhmi         ###   ########.fr       */
-/*   Updated: 2025/08/14 13:42:28 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/09/18 13:45:48 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../cub3d.h"
 
@@ -63,10 +63,8 @@ void draw_direction_line(t_game *game)
 int render_map(t_game *game)
 {
 	int x;
-	int y;
 
     ft_memset(game->add, 0, game->win_width * game->win_heigth * (game->bits_per_pixel / 8));
-	y = 0;
 	draw_background(game);
 	draw_sun(game);
 	x = 0;
@@ -76,7 +74,5 @@ int render_map(t_game *game)
 		x++;
     }
 	handle_weapon_animation(game);
-	// mlx_mouse_move(game->mlx,game->win,(int)game->win_width/2, (int)game->win_heigth/2);
-    // draw_direction_line(game);
-    // mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
+	return (0);
 }

@@ -6,10 +6,10 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:56:23 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/20 22:25:24 by aboukhmi         ###   ########.fr       */
-/*   Updated: 2025/08/14 14:41:01 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/09/18 13:34:39 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../cub3d.h"
 
@@ -29,7 +29,6 @@ int render_game_with_minimap(t_game *game)
 {
     render_map(game);
     render_minimap_corner(game);
-    // Display everything
     mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
     return 0;
 }
@@ -45,6 +44,7 @@ int main(int ac, char **av)
     }
 
     init_game(&game);
+    init_key_states(&game);
     
     if (parse_cub_file(av[1], &game) == 0)
     {
@@ -56,12 +56,16 @@ int main(int ac, char **av)
     setup_textures(&game);
     setup_weapon(&game);
     setup_sun(&game);
-    mlx_loop_hook( game.mlx,render_game_with_minimap, &game);
+
+    mlx_loop_hook(game.mlx, game_loop, &game);
     // render_game_with_minimap(&game);
+    
     mlx_hook(game.win, 2, 1L<<0, handle_keypress, &game);
-    mlx_hook(game.win, 6, 1L<<0, handle_mouse_move, &game);
-    // mlx_mouse_hide();
-    mlx_mouse_move(game.mlx,game.win,(int)game.win_width/2, (int)game.win_heigth/2);
+    mlx_hook(game.win, 3, 1L<<1, handle_keyrelease, &game);
+    
+    mlx_hook(game.win, 6, 1L<<6, handle_mouse_move, &game);
+    mlx_mouse_hide(game.mlx, game.win);
+    mlx_mouse_move(game.mlx, game.win, (int)game.win_width/2, (int)game.win_heigth/2);
     mlx_loop(game.mlx);
     return (0);
 }

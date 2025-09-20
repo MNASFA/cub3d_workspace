@@ -6,7 +6,7 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 12:51:16 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/08/15 22:08:59 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/09/18 15:16:15 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,59 +75,6 @@ static void draw_minimap_player(t_game *game)
         py++;
     }
 }
-
-// static void draw_minimap_direction(t_game *game)
-// {
-//     t_line line;
-//     int i;
-//     int line_length = 15;
-    
-//     line.center_x = MINIMAP_MARGIN + MINIMAP_SIZE / 2;
-//     line.center_y = MINIMAP_MARGIN + MINIMAP_SIZE / 2;
-//     line.end_x = line.center_x + (int)(game->player.dir_x * line_length);
-//     line.end_y = line.center_y + (int)(game->player.dir_y * line_length);
-    
-//     i = 0;
-//     while (i <= line_length)
-//     {
-//         line.ratio = (double)i / line_length;
-//         line.px = line.center_x + (line.end_x - line.center_x) * line.ratio;
-//         line.py = line.center_y + (line.end_y - line.center_y) * line.ratio;
-//         draw_minimap_pixel(game, line.px, line.py, 0x00FF00);
-//         i++;
-//     }
-// }
-
-// static void draw_minimap_background(t_game *game)
-// {
-//     int py, px;
-    
-//     py = MINIMAP_MARGIN;
-//     while (py < MINIMAP_MARGIN + MINIMAP_SIZE)
-//     {
-//         px = MINIMAP_MARGIN;
-//         while (px < MINIMAP_MARGIN + MINIMAP_SIZE)
-//         {
-//             draw_minimap_pixel(game, px, py, game->ceiling_color);
-//             px++;
-//         }
-//         py++;
-//     }
-//     py = MINIMAP_MARGIN - 1;
-//     while (py <= MINIMAP_MARGIN + MINIMAP_SIZE)
-//     {
-//         draw_minimap_pixel(game, MINIMAP_MARGIN - 1, py, 0x888888);
-//         draw_minimap_pixel(game, MINIMAP_MARGIN + MINIMAP_SIZE, py, 0x888888);
-//         py++;
-//     }
-//     px = MINIMAP_MARGIN - 1;
-//     while (px <= MINIMAP_MARGIN + MINIMAP_SIZE)
-//     {
-//         draw_minimap_pixel(game, px, MINIMAP_MARGIN - 1, 0x888888);
-//         draw_minimap_pixel(game, px, MINIMAP_MARGIN + MINIMAP_SIZE, 0x888888);
-//         px++;
-//     }
-// }
 
 void render_minimap_corner(t_game *game)
 {
