@@ -5,15 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/15 09:08:39 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/09/18 15:09:03 by hmnasfa          ###   ########.fr       */
+/*   Created: 2025/09/20 20:29:24 by hmnasfa           #+#    #+#             */
+/*   Updated: 2025/09/21 10:42:52 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef CUB3D_H
 # define CUB3D_H
-	
+
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
@@ -53,13 +52,30 @@
 # define KEY_ESC     65307
 # define KEY_SPACE   32
 
-
 /* Movement speed */
-# define MOVE_SPEED 0.05
-# define ROT_SPEED 0.05
+# define MOVE_SPEED 0.09
+# define ROT_SPEED 0.03
 # define SENSITIVITY 0.002
 
 //////////////////////////////////   END COLORS   ///////////////////////////
+
+typedef struct s_corner
+{
+	int	visible_range;
+	int	player_map_x;
+	int	player_map_y;
+}	t_corner;
+
+typedef struct s_square
+{
+	int	py;
+	int	px;
+	int	screen_x;
+	int	screen_y;
+	int	tile_size;
+	int	center_offset_x;
+	int	center_offset_y;
+}	t_square;
 
 typedef struct s_weapon
 {
@@ -83,7 +99,7 @@ typedef struct s_sun
 	int		height;
 }	t_sun;
 
-typedef struct  s_texture
+typedef struct s_texture
 {
 	void	*img;
 	char	*add;
@@ -113,82 +129,82 @@ typedef struct s_map
 	int		player_count;
 }	t_map;
 
-typedef struct s_mouse {
-    int x;
-    int y;
-} t_mouse;
-
-typedef	struct s_game
+typedef struct s_mouse
 {
-	void	*mlx;
-	void	*win;
-	void	*img;
-	char	*add;
-	int		bits_per_pixel;
-	int 	line_length;
-	int		endian;
+	int	x;
+	int	y;
+}	t_mouse;
+
+typedef struct s_game
+{
+	void		*mlx;
+	void		*win;
+	void		*img;
+	char		*add;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
 
 	t_texture	north;
 	t_texture	south;
 	t_texture	east;
 	t_texture	west;
-	
-	int		floor_color;
-	int		ceiling_color;
+
+	int			floor_color;
+	int			ceiling_color;
 
 	t_map		map;
 	t_player	player;
-	t_mouse mouse;
+	t_mouse		mouse;
 
-	int win_width;
-	int win_heigth;
-	char dir;
+	int			win_width;
+	int			win_heigth;
+	char		dir;
 
-	// minimap
-	void *minimap_img;
-	char *minimap_addr;
+	void		*minimap_img;
+	char		*minimap_addr;
 
-	// flags for keys pressed
-	int key_w_pressed;
-    int key_s_pressed;
-    int key_a_pressed;
-    int key_d_pressed;
-    int key_left_pressed;
-    int key_right_pressed;
+	int			key_w_pressed;
+	int			key_s_pressed;
+	int			key_a_pressed;
+	int			key_d_pressed;
+	int			key_left_pressed;
+	int			key_right_pressed;
 
-	// flags
-	int no_parsed;
-	int so_parsed;
-	int we_parsed;
-	int ea_parsed;
-	int f_parsed;
-	int c_parsed;
+	int			no_parsed;
+	int			so_parsed;
+	int			we_parsed;
+	int			ea_parsed;
+	int			f_parsed;
+	int			c_parsed;
 	t_weapon	weapon[15];
 	t_sun		sun[46];
-	int sun_frame;
-	int space_pressed;
-	int weapon_frame;
-	int next_frame;
+	int			sun_frame;
+	int			space_pressed;
+	int			weapon_frame;
+	int			next_frame;
 }	t_game;
 
 typedef struct s_line
 {
-	int start_x;
-	int start_y;
-	int center_x;
-	int center_y;
-	int line_length;
-	int end_x;
-	int end_y;
-	double ratio;
-	int px;
-	int py;
-	int pixel;
+	int		start_x;
+	int		start_y;
+	int		center_x;
+	int		center_y;
+	int		line_length;
+	int		end_x;
+	int		end_y;
+	double	ratio;
+	int		px;
+	int		py;
+	int		pixel;
 }	t_line;
+
 ///////////////// Init ///////////////////////
 
-void init_game(t_game *game);
-void init_key_states(t_game *game);
+void	init_game(t_game *game);
+void	init_key_states(t_game *game);
+void	init_square(t_square *square, t_game *game, int map_x, int map_y);
 
 ///////////////// Get Next Line ///////////////////////
 
@@ -216,17 +232,32 @@ int		is_empty_line(char *line);
 int		is_color_line(char *line);
 int		is_texture_line(char *line);
 
-
 ///////////////// Parse files ///////////////////////
 
 int		parse_cub_file(char *filename, t_game *game);
 int		parse_map(char **lines, int start, t_game *game);
 int		validate_map(t_game *game);
 void	free_lines(char **lines);
-char	**read_all_lines(int fd, int *line_count);
+char	**read_all_lines(int fd, int *line_count, int capacity);
 int		parse_texture_line(char *line, t_game *game);
 int		parse_color_line(char *line, t_game *game);
 int		is_player(char c);
+int		is_valid_char(char c);
+int		is_on_border(int x, int y, int row_len, int height);
+int		is_valid_integer(char *str);
+int		is_map_line(char *line);
+int		is_walkable_parsing(char c);
+int		find_map_start(char **lines);
+char	*extract_path(char *line);
+void	set_player_orientation(t_game *game, char dir);
+int		get_row_length(char *row);
+int		is_cell_accessible(char **grid, int height, int x, int y);
+int		check_map_enclosure(char **grid, int height, int x, int y);
+void	set_player_data(t_game *game, char direction, int x, int y);
+void	calculate_movement(t_game *game, double *new_x,
+			double *new_y, int *moved);
+void	rotate_player(t_player *player, double angle);
+int		is_walkable(t_game *game, double new_x, double new_y);
 
 ///////////////// Rendring files ///////////////////////
 
