@@ -6,7 +6,7 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 13:35:37 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/09/20 16:57:34 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/09/21 14:30:05 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	validate_characters_and_player(t_game *game, int y)
 	return (1);
 }
 
-int	validate_map_enclosure(t_game *game, int y)
+int	last_validation(t_game *game, int y)
 {
 	int		x;
 	int		row_len;
@@ -62,9 +62,6 @@ int	validate_map_enclosure(t_game *game, int y)
 						game->map.height, x, y))
 					return (print_error("Map not enclosed by walls"), 0);
 			}
-			if (is_on_border(x, y, row_len, game->map.height)
-				&& is_walkable_parsing(c))
-				return (print_error("Map borders must be walls"), 0);
 		}
 	}
 	return (1);
@@ -74,7 +71,7 @@ int	validate_map(t_game *game)
 {
 	if (!validate_characters_and_player(game, -1))
 		return (0);
-	if (!validate_map_enclosure(game, -1))
+	if (!last_validation(game, -1))
 		return (0);
 	return (1);
 }

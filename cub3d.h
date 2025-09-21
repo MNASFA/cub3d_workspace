@@ -6,7 +6,7 @@
 /*   By: hmnasfa <hmnasfa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 20:29:24 by hmnasfa           #+#    #+#             */
-/*   Updated: 2025/09/21 10:42:52 by hmnasfa          ###   ########.fr       */
+/*   Updated: 2025/09/21 14:33:32 by hmnasfa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,7 +243,6 @@ int		parse_texture_line(char *line, t_game *game);
 int		parse_color_line(char *line, t_game *game);
 int		is_player(char c);
 int		is_valid_char(char c);
-int		is_on_border(int x, int y, int row_len, int height);
 int		is_valid_integer(char *str);
 int		is_map_line(char *line);
 int		is_walkable_parsing(char c);
