@@ -6,106 +6,134 @@
 /*   By: aboukhmi <aboukhmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 14:20:25 by aboukhmi          #+#    #+#             */
-/*   Updated: 2025/08/21 16:19:07 by aboukhmi         ###   ########.fr       */
+/*   Updated: 2025/09/20 17:25:55 by aboukhmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#  include "raycasting.h"
+#include "raycasting.h"
 
-void setup_weapon(t_game *game)
+void	set_path_1(char path[25])
 {
-    game->weapon[0].img = mlx_xpm_file_to_image(game->mlx, "animation/0.xpm", &game->weapon[0].width, &game->weapon[0].height);
-    game->weapon[0].add = mlx_get_data_addr(game->weapon[0].img, &game->weapon[0].bits_per_pixel, &game->weapon[0].line_length, &game->weapon[0].endian);
-    game->weapon[1].img = mlx_xpm_file_to_image(game->mlx, "animation/1.xpm", &game->weapon[1].width, &game->weapon[1].height);
-    game->weapon[1].add = mlx_get_data_addr(game->weapon[1].img, &game->weapon[1].bits_per_pixel, &game->weapon[1].line_length, &game->weapon[1].endian);
-    game->weapon[2].img = mlx_xpm_file_to_image(game->mlx, "animation/2.xpm", &game->weapon[2].width, &game->weapon[2].height);
-    game->weapon[2].add = mlx_get_data_addr(game->weapon[2].img, &game->weapon[2].bits_per_pixel, &game->weapon[2].line_length, &game->weapon[2].endian);
-    game->weapon[3].img = mlx_xpm_file_to_image(game->mlx, "animation/3.xpm", &game->weapon[3].width, &game->weapon[3].height);
-    game->weapon[3].add = mlx_get_data_addr(game->weapon[3].img, &game->weapon[3].bits_per_pixel, &game->weapon[3].line_length, &game->weapon[3].endian);
-    game->weapon[4].img = mlx_xpm_file_to_image(game->mlx, "animation/4.xpm", &game->weapon[4].width, &game->weapon[4].height);
-    game->weapon[4].add = mlx_get_data_addr(game->weapon[4].img, &game->weapon[4].bits_per_pixel, &game->weapon[4].line_length, &game->weapon[4].endian);
-    game->weapon[5].img = mlx_xpm_file_to_image(game->mlx, "animation/5.xpm", &game->weapon[5].width, &game->weapon[5].height);
-    game->weapon[5].add = mlx_get_data_addr(game->weapon[5].img, &game->weapon[5].bits_per_pixel, &game->weapon[5].line_length, &game->weapon[5].endian);
-    game->weapon[6].img = mlx_xpm_file_to_image(game->mlx, "animation/6.xpm", &game->weapon[6].width, &game->weapon[6].height);
-    game->weapon[6].add = mlx_get_data_addr(game->weapon[6].img, &game->weapon[6].bits_per_pixel, &game->weapon[6].line_length, &game->weapon[6].endian);
-    game->weapon[7].img = mlx_xpm_file_to_image(game->mlx, "animation/7.xpm", &game->weapon[7].width, &game->weapon[7].height);
-    game->weapon[7].add = mlx_get_data_addr(game->weapon[7].img, &game->weapon[7].bits_per_pixel, &game->weapon[7].line_length, &game->weapon[7].endian);
-    game->weapon[8].img = mlx_xpm_file_to_image(game->mlx, "animation/8.xpm", &game->weapon[8].width, &game->weapon[8].height);
-    game->weapon[8].add = mlx_get_data_addr(game->weapon[8].img, &game->weapon[8].bits_per_pixel, &game->weapon[8].line_length, &game->weapon[8].endian);
-    game->weapon[9].img = mlx_xpm_file_to_image(game->mlx, "animation/9.xpm", &game->weapon[9].width, &game->weapon[9].height);
-    game->weapon[9].add = mlx_get_data_addr(game->weapon[9].img, &game->weapon[9].bits_per_pixel, &game->weapon[9].line_length, &game->weapon[9].endian);
-    game->weapon[10].img = mlx_xpm_file_to_image(game->mlx, "animation/10.xpm", &game->weapon[10].width, &game->weapon[10].height);
-    game->weapon[10].add = mlx_get_data_addr(game->weapon[10].img, &game->weapon[10].bits_per_pixel, &game->weapon[10].line_length, &game->weapon[10].endian);
-    game->weapon[11].img = mlx_xpm_file_to_image(game->mlx, "animation/11.xpm", &game->weapon[11].width, &game->weapon[11].height);
-    game->weapon[11].add = mlx_get_data_addr(game->weapon[11].img, &game->weapon[11].bits_per_pixel, &game->weapon[11].line_length, &game->weapon[11].endian);
-    game->weapon[12].img = mlx_xpm_file_to_image(game->mlx, "animation/12.xpm", &game->weapon[12].width, &game->weapon[12].height);
-    game->weapon[12].add = mlx_get_data_addr(game->weapon[12].img, &game->weapon[12].bits_per_pixel, &game->weapon[12].line_length, &game->weapon[12].endian);
-    game->weapon[13].img = mlx_xpm_file_to_image(game->mlx, "animation/13.xpm", &game->weapon[13].width, &game->weapon[13].height);
-    game->weapon[13].add = mlx_get_data_addr(game->weapon[13].img, &game->weapon[13].bits_per_pixel, &game->weapon[13].line_length, &game->weapon[13].endian);
-    game->weapon[14].img = mlx_xpm_file_to_image(game->mlx, "animation/14.xpm", &game->weapon[14].width, &game->weapon[14].height);
-    game->weapon[14].add = mlx_get_data_addr(game->weapon[14].img, &game->weapon[14].bits_per_pixel, &game->weapon[14].line_length, &game->weapon[14].endian);
-    if (!game->weapon[0].img || !game->weapon[1].img || !game->weapon[2].img || !game->weapon[3].img ||
-        !game->weapon[4].img || !game->weapon[5].img || !game->weapon[6].img || !game->weapon[7].img ||
-        !game->weapon[8].img || !game->weapon[9].img || !game->weapon[10].img || !game->weapon[11].img ||
-        !game->weapon[12].img || !game->weapon[13].img || !game->weapon[14].img)
-    {
-        print_error("Failed to load weapon textures");
-        exit(EXIT_FAILURE);
-    }
+	path[0] = 'a';
+	path[1] = 'n';
+	path[2] = 'i';
+	path[3] = 'm';
+	path[4] = 'a';
+	path[5] = 't';
+	path[6] = 'i';
+	path[7] = 'o';
+	path[8] = 'n';
+	path[9] = '/';
 }
 
-void handle_weapon(t_game *game, int frame)
+void	set_path_2(char path[25], int n)
 {
-    int x;
-    int y;
-    char *pixel;
-    char *address_color;
-    int texture_x, texture_y;
-
-    texture_x = 0;
-    texture_y = 0;
-    x = game->win_width / 2 - game->weapon[frame].width / 2;
-    while (texture_x < game->weapon[frame].width - 1)
-    {
-        y = game->win_heigth - game->weapon[frame].height;
-        while (texture_y < game->weapon[frame].height - 1)
-        {
-            pixel = game->add + (y * game->line_length + x * (game->bits_per_pixel / 8));
-            address_color = game->weapon[frame].add + (texture_y * game->weapon[frame].line_length + texture_x * (game->weapon[frame].bits_per_pixel / 8));
-            if (*(unsigned int*)address_color != 0xff000000)
-            {
-                *(unsigned int*)pixel = *(unsigned int*)address_color;
-            }
-            texture_y++;
-            y++;
-            pixel += (game->bits_per_pixel / 8);
-        }
-        texture_y = 0;
-        x++;
-        texture_x ++;
-    }
+	set_path_1(path);
+	if (n >= 10)
+	{
+		path[10] = '0' + (n / 10);
+		path[11] = '0' + (n % 10);
+		path[12] = '.';
+		path[13] = 'x';
+		path[14] = 'p';
+		path[15] = 'm';
+		path[16] = '\0';
+	}
+	else
+	{
+		path[10] = '0' + n;
+		path[11] = '.';
+		path[12] = 'x';
+		path[13] = 'p';
+		path[14] = 'm';
+		path[15] = '\0';
+	}
 }
 
-void handle_weapon_animation(t_game *game)
+void	setup_weapon(t_game *game)
 {
+	int		i;
+	char	path[25];
 
-    if (game->space_pressed == 1)
-    {
-        handle_weapon(game, game->weapon_frame);
-        if (game->next_frame ==5)
-        {
-            game->weapon_frame++;
-            game->next_frame = 0;
-        }
-        if (game->weapon_frame > 14)
-        {
-            game->space_pressed = 0;
-            game->weapon_frame = 0;
-        }
-        game->next_frame++;
-    }
-    else
-    {
-        handle_weapon(game, 0);
-    }
+	i = 0;
+	while (i < 15)
+	{
+		set_path_2(path, i);
+		game->weapon[i].img = mlx_xpm_file_to_image(game->mlx, path,
+				&game->weapon[i].width, &game->weapon[i].height);
+		game->weapon[i].add = mlx_get_data_addr(game->weapon[i].img,
+				&game->weapon[i].bits_per_pixel,
+				&game->weapon[i].line_length, &game->weapon[i].endian);
+		i++;
+	}
+	if (!game->weapon[0].img || !game->weapon[1].img
+		|| !game->weapon[2].img || !game->weapon[3].img || \
+		!game->weapon[4].img || !game->weapon[5].img || \
+		!game->weapon[6].img || !game->weapon[7].img || \
+		!game->weapon[8].img || !game->weapon[9].img || \
+		!game->weapon[10].img || !game->weapon[11].img || \
+		!game->weapon[12].img || !game->weapon[13].img || !game->weapon[14].img)
+	{
+		print_error("Failed to load weapon textures");
+		exit(EXIT_FAILURE);
+	}
 }
+
+void	set_weap_pixel(t_game *game, t_weap *data)
+{
+	char	*address_color;
+	char	*pixel;
+
+	pixel = game->add + (data->y * game->line_length + \
+			data->x * (game->bits_per_pixel / 8));
+	address_color = game->weapon[data->frame].add + \
+		(data->texture_y * game->weapon[data->frame].line_length + \
+		data->texture_x * (game->weapon[data->frame].bits_per_pixel / 8));
+	if (*(unsigned int *)address_color != 0xff000000)
+		*(unsigned int *)pixel = *(unsigned int *)address_color;
+}
+
+// void	handle_weapon(t_game *game, int frame)
+// {
+// 	t_weap	*data;
+
+// 	data->frame = frame;
+// 	data->texture_x = 0;
+// 	data->x = game->win_width / 2 - game->weapon[frame].width / 2;
+// 	while (data->texture_x < game->weapon[frame].width)
+// 	{
+// 		data->texture_y = 0;
+// 		data->y = game->win_heigth - game->weapon[frame].height;
+// 		while (data->texture_y < game->weapon[frame].height)
+// 		{
+// 			set_weap_pixel(game, data);
+// 			data->texture_y++;
+// 			data->y++;
+// 		}
+// 		data->x++;
+// 		data->texture_x++;
+// 	}
+// }
+
+// void	handle_weapon_animation(t_game *game)
+// {
+// 	if (game->space_pressed == 1)
+// 	{
+// 		handle_weapon(game, game->weapon_frame);
+// 		if (game->next_frame == 5)
+// 		{
+// 			game->weapon_frame++;
+// 			game->next_frame = 0;
+// 		}
+// 		if (game->weapon_frame > 14)
+// 		{
+// 			game->space_pressed = 0;
+// 			game->weapon_frame = 0;
+// 		}
+// 		game->next_frame++;
+// 	}
+// 	else
+// 	{
+// 		handle_weapon(game, 0);
+// 	}
+// }
