@@ -1,17 +1,47 @@
 NAME = cub3D
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Iinclude -I$(MLX_DIR)
+CFLAGS = -Wall -Wextra  -Iinclude -I$(MLX_DIR) -Ofast
 SRC_DIR = src
 MLX_DIR = minilibx
-HEADER = cub3D.h
+HEADER = cub3d.h raycasting/raycasting.h
 
 MLX = $(MLX_DIR)/libmlx.a
 
-SRCS = src/main.c
+SRCS = src/main.c \
+    src/parsing/parse_file.c \
+    get_next_line/get_next_line.c \
+    get_next_line/get_next_line_utils.c \
+    src/init.c \
+    src/init_dir.c \
+    src/parsing/parse_colors.c \
+    src/parsing/parse_map.c \
+    src/parsing/parse_textures.c \
+    src/parsing/read_all_lines.c \
+    src/parsing/validation.c \
+    spliiit.c \
+    utils.c \
+    utils_1.c \
+    utils_2.c \
+    raycasting/dda.c \
+    raycasting/draw_sun.c \
+    raycasting/draw_texture.c \
+    raycasting/draw_weapon.c \
+    raycasting/wall_dimension.c \
+    src/rendring/init_mlx.c \
+    src/rendring/render_map.c \
+    src/rendring/hooks.c \
+    src/rendring/render_minimap.c \
+    src/rendring/hooks_utils.c \
+    src/parsing/validation_2.c \
+    src/parsing/map_line.c \
+    src/parsing/parsing_utils.c \
+    raycasting/raycasting.c \
+    raycasting/weapon.c \
+    raycasting/sun.c
 OBJS = $(SRCS:.c=.o)
 
-LINK_FLAGS = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+LINK_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm 
 
 all: $(NAME)
 
@@ -26,7 +56,7 @@ $(MLX):
 
 clean:
 	rm -f $(OBJS)
-	$(MAKE) -C $(MLX_DIR) clean
+	# $(MAKE) -C $(MLX_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)
