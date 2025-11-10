@@ -1,41 +1,53 @@
-#Cub3D
+# 🎮 cub3D — Raycasting 3D Game Engine
 
-A 3D maze exploration game inspired by Wolfenstein 3D, built using raycasting techniques with the miniLibX graphics library.
+> A **Wolfenstein 3D inspired** first-person view game engine, built from scratch using **Raycasting** and **MiniLibX**.  
+> Developed as part of the **42 School** curriculum.
 
-📋 Table of Contents
+---
 
-🎮 About
-cub3D is a first-person 3D maze exploration game that recreates the raycasting engine made famous by Wolfenstein 3D. This project demonstrates fundamental 3D rendering techniques, game loop implementation, and real-time user interaction.
-The project is part of the 42 School curriculum and focuses on:
+## ✨ Overview
 
-Understanding raycasting algorithms
-Working with graphics libraries
-Managing textures and colors
-Implementing smooth player movement and rotation
-Parsing and validating configuration files
+**cub3D** is a simplified 3D renderer that projects a 2D map into a first-person 3D perspective using **raycasting**.  
+The goal of this project is to learn about:
 
-✨ Features
-Mandatory Features
+- Graphic rendering
+- Vector & angle math
+- Player movement & collision
+- Texture sampling
+- Efficient real-time loops
 
-✅ First-person 3D view using raycasting
-✅ Textured walls with different textures for each direction (N, S, E, W)
-✅ Customizable floor and ceiling colors
-✅ Smooth player movement (W, A, S, D keys)
-✅ Camera rotation (Left/Right arrow keys)
-✅ Minimap display in corner
-✅ Map parsing from .cub configuration files
-✅ Comprehensive error handling and validation
+It reproduces the core concepts behind early **FPS engines**, particularly *Wolfenstein 3D (1992)*.
 
-Bonus Features
+---
 
-🎯 Wall collision detection
-🗺️ Minimap system with real-time player position
-🔫 Animated weapon with shooting mechanics
-☀️ Animated sun/sky element
-🖱️ Mouse-controlled camera rotation
-🎨 Enhanced visual effects
+## 🌍 Features (Mandatory)
 
-📁 Project Structure
+| Feature | Description |
+|--------|-------------|
+| 🧭 First-person camera | Move through the map in real-time (W A S D). |
+| 🔭 View rotation | Rotate left/right using arrow keys. |
+| 🧱 Textured walls | Different textures for N / S / E / W faces. |
+| 🎨 Floor & ceiling colors | Configurable via `.cub` map file. |
+| 🗺️ Map parsing | Validates map structure + player spawn. |
+| 🪟 Clean exit | ESC key or window close button closes program properly. |
+
+---
+
+## 🌟 Bonus Features (Implemented)
+
+| Bonus | Status | Description |
+|-------|:------:|-------------|
+| 🚧 Wall collision | ✅ | Player cannot walk through walls. |
+| 🗺️ Minimap (Top-down) | ✅ | Real-time small overhead map display. |
+| 🐭 Mouse view rotation | ✅ | Moving the mouse rotates the camera. |
+| 🔥 Animated sprites | ✅ | Sprite animations depending on state/events. |
+| 🚪 Doors | ❌ | Not implemented (excluded in this version). |
+
+---
+
+## 🗂️ Project Structure
+
+```
 cub3D/
 ├── animation/              # Weapon and sun animation frames (XPM files)
 │   ├── 0.xpm - 14.xpm     # Weapon animation frames
@@ -88,17 +100,9 @@ cub3D/
 ├── utils.c               # Utility functions
 ├── utils_1.c
 └── utils_2.c
+```
 
-🔧 Installation
-Prerequisites
-
-GCC compiler
-Make
-X11 development libraries (Linux)
-XQuartz (macOS)
-
-Linux Installation
-bash# Install dependencies
+# Install dependencies
 sudo apt-get update
 sudo apt-get install gcc make xorg libxext-dev libbsd-dev
 
@@ -111,24 +115,8 @@ make
 
 # Run the game
 ./cub3D maps/test.cub
-macOS Installation
-bash# Install XQuartz
-brew install xquartz
 
-# Reboot your system
-reboot
-
-# Clone and compile
-git clone https://github.com/yourusername/cub3D.git
-cd cub3D
-make
-
-# Run the game
 ./cub3D maps/test.cub
-🎯 Usage
-bash./cub3D <map_file.cub>
-Example:
-bash./cub3D maps/test.cub
 ```
 
 ## 🎮 Controls
@@ -149,6 +137,8 @@ bash./cub3D maps/test.cub
 
 The game uses `.cub` configuration files with the following format:
 ```
+
+```c
 NO ./textures/north_wall.xpm
 SO ./textures/south_wall.xpm
 WE ./textures/west_wall.xpm
@@ -171,15 +161,8 @@ C 225,30,0
 11000001110101011111011110001
 11110111 1110101 101111010001
 11111111 1111111 111111111111
+```
 
-Configuration Elements
-
-NO, SO, WE, EA: Paths to wall textures
-F: Floor color in RGB format (R,G,B)
-C: Ceiling color in RGB format (R,G,B)
-
-Map Characters
-CharacterMeaning0Empty space (walkable)1WallNPlayer start position (facing North)SPlayer start position (facing South)EPlayer start position (facing East)WPlayer start position (facing West) Void (space)
 Map Rules
 
 Map must be surrounded by walls (1)
